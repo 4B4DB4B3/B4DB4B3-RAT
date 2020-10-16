@@ -29,6 +29,7 @@ Global
 		{9373A3EF-53E5-45E4-808B-39A53AF5B7E3}.Debug|x86.Build.0 = Debug|Win32
 		{9373A3EF-53E5-45E4-808B-39A53AF5B7E3}.Release|x64.ActiveCfg = Release|x64
 		{9373A3EF-53E5-45E4-808B-39A53AF5B7E3}.Release|x64.Build.0 = Release|x64
+		{9373A3EF-53E5-45E4-808B-39A53AF5B7E3}.Release|x86.ActiveCfg = Release|Win32
 		{9373A3EF-53E5-45E4-808B-39A53AF5B7E3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
