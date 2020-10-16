@@ -17,4 +17,4 @@
 # Changelog
  
 # License
- ![B4DB4B3-RAT](https://github.com/4B4DB4B3/B4DB4B3-RAT) is licensed under Creative Commons Attribution NoDerivs (CC-ND) - https://creativecommons.org/licenses/by-nd/2.0/legalcode
+ ![B4DB4B3-RAT](https://github.com/4B4DB4B3/B4DB4B3-RAT) is licensed under ![MIT License](https://mit-license.org/)
