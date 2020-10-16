@@ -17,4 +17,4 @@
 # Changelog
  
 # License
- ![B4DB4B3-RAT](https://github.com/4B4DB4B3/B4DB4B3-RAT) is licensed under ![MIT License](https://opensource.org/licenses/MIT)
+ ![B4DB4B3-RAT](https://github.com/4B4DB4B3/B4DB4B3-RAT) is licensed under ![MIT License](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/LICENSE)
