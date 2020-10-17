@@ -1,12 +1,11 @@
 # B4DB4B3-RAT
  Program for remote computer management using Telegram on C++ - by B4DB4B3
 ### Interface  
- ![UI](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/UI.png)
- ![TG](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/TG.png)
- ![EXAMPLE](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/EXAMPLE.png)
+ ![UI](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/UI.png)   
+ ![EXAMPLE](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/EXAMPLE.png)   
 ### Weight of stub and builder  
  #### P.S: Around 400-300 KB :)
- ![WEIGHT](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/WEIGHT.png)
+ ![WEIGHT](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/WEIGHT.png)   
    
 # Commands (Will be added)   
  Process manager:      
