@@ -76,7 +76,7 @@ BEGIN
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,149,151,10
     CONTROL         "Protect from debuggers (By processes)",IDC_CHECK4,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,163,143,10
-    CTEXT           "Test BOT API",IDC_STATIC4,137,181,129,28,SS_NOTIFY | SS_CENTERIMAGE,WS_EX_STATICEDGE
+    CTEXT           "Test BOT API (Show commands)",IDC_STATIC4,137,181,129,28,SS_NOTIFY | SS_CENTERIMAGE,WS_EX_STATICEDGE
 END
 
 

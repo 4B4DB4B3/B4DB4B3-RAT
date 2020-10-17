@@ -1,6 +1,7 @@
-﻿  WinMain.cpp
+﻿  Manager.cpp
+C:\Users\FORMATC\source\repos\B4B3-RAT\Stub\Manager.cpp(132,24): warning C4018: <: несоответствие типов со знаком и без знака
   Создание кода
-  1 of 1569 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  2 of 1575 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     1 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
