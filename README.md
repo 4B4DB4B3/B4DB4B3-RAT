@@ -8,6 +8,7 @@
  ![WEIGHT](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/WEIGHT.png)   
    
 # Commands (Will be added)   
+```
  Process manager:      
  /user[ID] processes - get process list    
  /user[ID] closeproc [processname.exe] - close process    
@@ -28,6 +29,7 @@
 
  RAT:   
  /users - show online users   
+```
 	
 # Coming soon
 - [x] Add file manager
