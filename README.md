@@ -15,6 +15,7 @@
 	/users - show users online
 	
 # Coming soon
+- [ ] Add file manager
 - [ ] Add function to get screenshot
    - [ ] Add function to record desktop
    - [ ] Add function to record microphone
