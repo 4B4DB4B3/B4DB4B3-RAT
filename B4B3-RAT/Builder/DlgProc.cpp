@@ -109,11 +109,9 @@ INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
 					State = SendMessage(GetDlgItem(hWnd, IDC_CHECK3), BM_GETCHECK, 0, 0);
 					if (State == BST_CHECKED) {
-						MessageBoxA(NULL, "s.drop", "", MB_OK);
 						s.drop_run = true;
 					}
 					else {
-						MessageBoxA(NULL, "s.drop is not", "", MB_OK);
 						s.drop_run = false;
 					}
 
