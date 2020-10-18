@@ -86,10 +86,11 @@
 6. "Write yourself in taskschd" - если стоит галочка - программа после запуска запишет себя в планировщик заданий
 
 # [CHANGELOG]
-> 17.10.2020 16:30 - Code is optimized, added commands   
-> 18.10.2020 18:40 - Code is refactored and optimized, fixed bugs (command inject dll didn't work), added new function in builder (write in scheduler task), updated GUI, added re-launch protection, added commands  
-> 19.10.2020 01:30 - Deleted traces of debugging (sorry for this), added more information about PC 
-![NEWINFO](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/NEWINFO.png) 
+Date       | Time  | Description
+---------- | ----- | -----------
+17.10.2020 | 16:30 | Code is optimized, added commands   
+18.10.2020 | 18:40 | Code is refactored and optimized, fixed bugs (command inject dll didn't work), added new function in builder (write in scheduler task), updated GUI, added re-launch protection, added commands ![NEWUI](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/NEWUI.png)
+19.10.2020 | 01:30 | Deleted traces of debugging (sorry for this), added more information about PC ![NEWINFO](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/NEWINFO.png)
 
 
 # [LICENSE]
