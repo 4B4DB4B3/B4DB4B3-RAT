@@ -69,8 +69,8 @@ std::string Telegram::GetLastMessageText(int chatid) {
 		}
 	}
 	
-	if (text != before_message) {
-		before_message = text;
+	if (text != previous_message) {
+		previous_message = text;
 		return text;
 	}
 	else {

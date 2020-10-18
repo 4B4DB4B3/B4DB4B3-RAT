@@ -26,18 +26,35 @@ SOFTWARE.
 #include "Requests.h"
 
 std::string GetOS() {
-	OSVERSIONINFOEX info;
-	ZeroMemory(&info, sizeof(OSVERSIONINFOEX));
-	info.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
-	GetVersionEx((LPOSVERSIONINFO)&info);
-
-	double version;
-
-	version = info.dwMajorVersion
-		+ (info.dwMinorVersion / 10.0)
-		- (info.wProductType == VER_NT_WORKSTATION) ? 0.5 : 0.0;
-
-	return std::to_string(version);
+    OSVERSIONINFO vi;
+    vi.dwOSVersionInfoSize = sizeof(vi);
+    if (GetVersionEx(&vi) == 0) 
+        return "Error getting ";
+	
+	if (vi.dwMajorVersion == 10 && vi.dwMinorVersion == 0) {
+		return "Windows 10";
+	}
+	else if (vi.dwMajorVersion == 6 && vi.dwMinorVersion == 3) {
+		return "Windows 8.1";
+	}
+	else if (vi.dwMajorVersion == 6 && vi.dwMinorVersion == 2) {
+		return "Windows 8";
+	}
+	else if (vi.dwMajorVersion == 6 && vi.dwMinorVersion == 1) {
+		return "Windows 7";
+	}
+	else if (vi.dwMajorVersion == 6 && vi.dwMinorVersion == 0) {
+		return "Windows Vista";
+	}
+	else if (vi.dwMajorVersion == 5 && vi.dwMinorVersion == 1) {
+		return "Windows XP";
+	}
+	else if (vi.dwMajorVersion == 5 && vi.dwMinorVersion == 0) {
+		return "Windows 2000";
+	}
+	else {
+		return "Unknown OS";
+	}
 }
 
 std::string GetIP() {
@@ -49,4 +66,37 @@ std::string GetPCName() {
 	DWORD len = sizeof(buff) - 1;
 	GetUserNameA(buff, &len);
 	return buff;
+}
+
+std::string GetProcessorBrand() {
+	int CPUInfo[4] = { -1 };
+
+	__cpuidex(CPUInfo, 0x80000000, 0);
+	unsigned int index = CPUInfo[0];
+
+	char ProcessorBrand[0x40] = { 0 };
+
+	for (unsigned int i = 0x80000000; i <= index; ++i)
+	{
+		__cpuidex(CPUInfo, i, 0);
+
+		switch (i) {
+		case 0x80000002:
+			memcpy(ProcessorBrand, CPUInfo, sizeof(CPUInfo));
+			break;
+
+		case 0x80000003:
+			memcpy(ProcessorBrand + 16, CPUInfo, sizeof(CPUInfo));
+			break;
+
+		case 0x80000004:
+			memcpy(ProcessorBrand + 32, CPUInfo, sizeof(CPUInfo));
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	return ProcessorBrand;
 }

