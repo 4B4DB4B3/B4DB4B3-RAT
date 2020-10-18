@@ -32,11 +32,16 @@ struct Settings {
 	char botapi[128] = { 0 };
 	char chatid[128] = { 0 };
 	char drop[128] = { 0 };
+	bool drop_run;
+
+	char scheduler_name[128] = { 0 };
+	bool scheduler_state;
+
 	char autorun[128] = { 0 };
+	bool autorun_state;
+
 	char client_delay[128] = { 0 };
 	bool auto_delete;
-	bool autorun_state;
-	bool drop_run;
 	bool protect_debuggers;
 };
 #pragma pack(pop)

@@ -1,7 +1,7 @@
 # B4DB4B3-RAT
  Program for remote computer management using Telegram on C++ - by B4DB4B3
 ### Interface  
- ![UI](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/UI.png)   
+ ![UI](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/NEWUI.png)   
  ![EXAMPLE](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/EXAMPLE.png)   
 ### Weight of stub and builder  
  #### P.S: Around 400-300 KB :)
@@ -37,11 +37,12 @@
    - [ ] Add function to record desktop
    - [ ] Add function to record microphone
 - [x] Add more jokes (open url, block url, close process and etc.)
-- [ ] Add process control (inject dll, shellcode and etc.)
+- [x] Add process control (inject dll, shellcode and etc.)
 - [ ] Add more information about PC 
  
 # Changelog
 > 17.10.2020 16:30 - Code is optimized, added commands
+> 18.10.2020 18:40 - Code is refactored and optimized, fixed bugs (command inject dll didn't work), added new function in builder (write in scheduler task), updated GUI, added re-launch protection, added commands
  
 # License
  ![B4DB4B3-RAT](https://github.com/4B4DB4B3/B4DB4B3-RAT) is licensed under MIT License - https://mit-license.org/

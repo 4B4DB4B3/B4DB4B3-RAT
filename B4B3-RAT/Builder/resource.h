@@ -17,6 +17,8 @@
 #define IDC_STATIC4                     1012
 #define IDC_CHECK3                      1013
 #define IDC_CHECK4                      1014
+#define IDC_CHECK5                      1015
+#define IDC_EDIT7                       1016
 
 // Next default values for new objects
 // 

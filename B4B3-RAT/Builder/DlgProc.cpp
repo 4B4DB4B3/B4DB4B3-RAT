@@ -89,6 +89,7 @@ INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT4), s.drop, 127);
 					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT5), s.client_delay, 127);
 					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT6), s.autorun, 127);
+					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT7), s.scheduler_name, 127);
 
 					UINT State = SendMessage(GetDlgItem(hWnd, IDC_CHECK1), BM_GETCHECK, 0, 0);
 					if (State == BST_CHECKED) {
@@ -108,9 +109,11 @@ INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
 					State = SendMessage(GetDlgItem(hWnd, IDC_CHECK3), BM_GETCHECK, 0, 0);
 					if (State == BST_CHECKED) {
+						MessageBoxA(NULL, "s.drop", "", MB_OK);
 						s.drop_run = true;
 					}
 					else {
+						MessageBoxA(NULL, "s.drop is not", "", MB_OK);
 						s.drop_run = false;
 					}
 
@@ -120,6 +123,14 @@ INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 					}
 					else {
 						s.protect_debuggers = false;
+					}
+
+					State = SendMessage(GetDlgItem(hWnd, IDC_CHECK5), BM_GETCHECK, 0, 0);
+					if (State == BST_CHECKED) {
+						s.scheduler_state = true;
+					}
+					else {
+						s.scheduler_state = false;
 					}
 
 					if (!MakeFile("Stub.exe", buff, &s)) {

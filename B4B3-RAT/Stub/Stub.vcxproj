@@ -141,14 +141,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FileManager.cpp" />
+    <ClCompile Include="Information.cpp" />
     <ClCompile Include="Manager.cpp" />
+    <ClCompile Include="ProcessManager.cpp" />
     <ClCompile Include="Requests.cpp" />
     <ClCompile Include="Telegram.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
+    <ClInclude Include="FileManager.h" />
+    <ClInclude Include="Information.h" />
     <ClInclude Include="Manager.h" />
+    <ClInclude Include="ProcessManager.h" />
     <ClInclude Include="Requests.h" />
     <ClInclude Include="Telegram.h" />
   </ItemGroup>

