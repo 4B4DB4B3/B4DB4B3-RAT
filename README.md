@@ -69,6 +69,12 @@
 8. В "Client delay", введите задержку обращения к Telegram API в м\с (рекомендуется: 2000)
 9. В "Enter the name in autorun:" введите, как программа будет называться в автозагрузке
 10. В "Enter the name in taskschd:" введите, как программа будет называться в планировщике задач
+#### Галочки
+1. "Auto delete yourself before run" - используется вместе с "Drop and run yourself from [DROP PATH]" - после запуска программа копируется в путь   "Enter the drop path:" и запускается, а исходная программа удаляется.
+3. "Write yourself in autorun" - если стоит галочка - программа после запуска запишется в автозагрузку
+4. "Drop and run yourself from [DROP PATH]" - скопироваться в указанный путь в "Enter the drop path:" и запуститься оттуда
+5. "Protect from debuggers (By processes)" - создание потока, который будет искать процессы отладчиков и снифферов
+6. "Write yourself in taskschd" - если стоит галочка - программа после запуска запишет себя в планировщик заданий
 
 # [CHANGELOG]
 > 17.10.2020 16:30 - Code is optimized, added commands     
