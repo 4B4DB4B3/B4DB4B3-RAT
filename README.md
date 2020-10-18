@@ -41,8 +41,8 @@
 - [ ] Add more information about PC 
  
 # Changelog
-> 17.10.2020 16:30 - Code is optimized, added commands
-> 18.10.2020 18:40 - Code is refactored and optimized, fixed bugs (command inject dll didn't work), added new function in builder (write in scheduler task), updated GUI, added re-launch protection, added commands
+> 17.10.2020 16:30 - Code is optimized, added commands  
+> 18.10.2020 18:40 - Code is refactored and optimized, fixed bugs (command inject dll didn't work), added new function in builder (write in scheduler task), updated GUI, added re-launch protection, added commands  
  
 # License
  ![B4DB4B3-RAT](https://github.com/4B4DB4B3/B4DB4B3-RAT) is licensed under MIT License - https://mit-license.org/
