@@ -19,7 +19,7 @@
  Command name         | Parameters                                              | Description
  -------------------- | ------------------------------------------------------- | -----------
  /user[ID] loader     | [https://google.com/file.exe] [C:\ProgramData\file.exe] | upload file from [LINK] to [PATH]    
- /user[ID] run        | [C:\ProgramData\file.exe] [Args to run file | Or empty] | run file from [PATH] with arguments [ARGS]   
+ /user[ID] run        | [C:\ProgramData\file.exe] [Args to run file / Or empty] | run file from [PATH] with arguments [ARGS]   
    
 ### Jokes:   
  Command name              | Parameters                                              | Description
