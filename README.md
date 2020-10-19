@@ -13,7 +13,7 @@
  -------------------- | -------------------------------------- | -----------
  /user[ID] processes  |                                        | get process list    
  /user[ID] closeproc  | [processname.exe]                      | close process    
- /user[ID] inject_dll | [processname.exe] [C:\Path\To\File.dll]| inject dll into process
+ /user[ID] inject_dll | [processname.exe] [C:\Path\To\File.dll]| inject dll in process
  
 ### Auxiliary: 
  Command name         | Parameters                                              | Description
