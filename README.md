@@ -13,7 +13,7 @@
  -------------------- | -------------------------------------- | -----------
  /user[ID] processes  |                                        | get process list    
  /user[ID] closeproc  | [processname.exe]                      | close process    
- /user[ID] inject_dll | [processname.exe] [C:\Path\To\File.dll]| Inject dll into process
+ /user[ID] inject_dll | [processname.exe] [C:\Path\To\File.dll]| inject dll into process
  
 ### Auxiliary: 
  Command name         | Parameters                                              | Description
@@ -32,7 +32,7 @@
  Command name              | Parameters                                              | Description
  ------------------------- | ------------------------------------------------------- | -----------
  /user[ID] dir             | [C:\Folder]                                             | show files and folders in directory    
- /user[ID] dir del_file    | [C:\Path\To\File.exe]                                   | delete file into directory    
+ /user[ID] dir del_file    | [C:\Path\To\File.exe]                                   | delete file in directory    
 
 ### RAT:   
  Command name              | Parameters                                              | Description
