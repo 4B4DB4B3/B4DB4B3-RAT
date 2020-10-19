@@ -1,11 +1,11 @@
 ﻿# -= B4DB4B3-RAT =-
  Program for remote computer management using Telegram on C++ - by B4DB4B3
 ### [Interface]  
- ![UI](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/NEWUI.png)   
- ![EXAMPLE](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/EXAMPLE.png)   
+ ![UI](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/NEWUI.png)   
+ ![EXAMPLE](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/EXAMPLE.png)   
 ### [Weight of stub and builder]  
  #### P.S: Around 400-300 KB :)
- ![WEIGHT](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/WEIGHT.png)   
+ ![WEIGHT](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/WEIGHT.png)   
    
 # [Commands (Will be added)]   
 ### Process manager:      
@@ -54,7 +54,7 @@ Date       | Time  | Description
 ---------- | ----- | -----------
 17.10.2020 | 16:30 | Code is optimized, added commands   
 18.10.2020 | 18:40 | Code is refactored and optimized, fixed bugs (command inject dll didn't work), added new function in builder (write in scheduler task), updated GUI, added re-launch protection, added commands ![NEWUI](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/NEWUI.png)
-19.10.2020 | 01:30 | Deleted traces of debugging (sorry for this), added more information about PC ![NEWINFO](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/NEWINFO.png)
+19.10.2020 | 01:30 | Deleted traces of debugging (sorry for this), added more information about PC ![NEWINFO](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/NEWINFO.png)
 
 
 # [LICENSE]
