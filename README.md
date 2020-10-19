@@ -44,7 +44,7 @@
 ### RAT:   
  Command name              | Parameters                                              | Description
  ------------------------- | ------------------------------------------------------- | -----------
- /users                    |                                                         | show online users   
+ /online                   |                                                         | show online users   
 	
 # [Coming soon]
 - [x] Add file manager
