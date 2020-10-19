@@ -37,7 +37,7 @@
 ### Service manager:
  Command name              | Parameters                                              | Description
  ------------------------- | ------------------------------------------------------- | -----------
- /user[ID] service show    |                                                         | show files and folders in directory    
+ /user[ID] service show    |                                                         | show all drivers in system    
  /user[ID] service add     | [Name] [DisplayName] [C:\ProgramData\yourdriver.sys] [Type-Driver] [Start-Type] | add your driver in system, Check Type-Driver and Start-Type values in "Service manager parse table"    
  /user[ID] service delete  | [NameService]                                           | delete driver from system
 
