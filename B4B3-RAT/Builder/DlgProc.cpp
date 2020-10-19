@@ -171,6 +171,11 @@ INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 						"/user[ID] dir [C:\\Folder] - show files and folders in directory %0A"
 						"/user[ID] dir del_file C:\\Path\\To\\File.exe - delete file into directory %0A"
 
+						"%0AService manager:%0A"
+						"/user[ID] service show - show all services in system %0A"
+						"/user[ID] service add [Name] [DisplayName] [C:\\ProgramData\\yourdriver.sys] [Type-Driver] [Start-Type] - load driver to system %0A"
+						"/user[ID] service delete [NameService] - delete service from system %0A";
+
 						"%0ARAT:%0A"
 						"/users - show online users%0A";
 						

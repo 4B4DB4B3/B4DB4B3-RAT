@@ -57,13 +57,13 @@ std::string Telegram::GetLastMessageText(int chatid) {
 	nlohmann::json list_messages = nlohmann::json::parse(messages);
 	
 	std::string text;
-	for (int i = 0; i < list_messages["result"].size(); i++) {
+	for (size_t i = 0; i < list_messages["result"].size(); i++) {
 		try {
 			if (list_messages["result"][i]["message"]["from"]["id"] == chatid) {
 				text = list_messages["result"][i]["message"]["text"];
 			}
 		}
-		catch (std::exception& e) {
+		catch (std::exception) {
 			text = "";
 			break;
 		}

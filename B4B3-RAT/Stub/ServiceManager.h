@@ -21,30 +21,17 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+
 #pragma once
-#pragma warning(disable : 4996)
+#ifndef SERVICEMANAGER_H
+#define SERVICEMANAGER_H
+#include "common.h"
 
-#ifndef COMMON_H
-#define COMMON_H
+std::string ServiceList();
+bool DeleteSvc(std::string name);
+bool AddService(std::string name, std::string displayname, std::string path, DWORD Type, DWORD StartType);
 
-#include <Windows.h>
-
-#include <WinInet.h>
-#pragma comment(lib, "WinInet.lib")
-
-#include <fstream>
-#include <nlohmann/json.hpp>
-#include <random>
-#include <time.h>
-
-#include <TlHelp32.h>
-
-#include <algorithm>
-#include <vector>
-#include <sstream>
-
-#include <psapi.h>
-
-#pragma comment(lib, "Urlmon.lib")
+DWORD ParseTypeDriver(std::string str);
+DWORD ParseStartTypeDriver(std::string str);
 
 #endif

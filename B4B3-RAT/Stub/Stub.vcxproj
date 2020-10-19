@@ -146,6 +146,7 @@
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="ProcessManager.cpp" />
     <ClCompile Include="Requests.cpp" />
+    <ClCompile Include="ServiceManager.cpp" />
     <ClCompile Include="Telegram.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -156,6 +157,7 @@
     <ClInclude Include="Manager.h" />
     <ClInclude Include="ProcessManager.h" />
     <ClInclude Include="Requests.h" />
+    <ClInclude Include="ServiceManager.h" />
     <ClInclude Include="Telegram.h" />
   </ItemGroup>
   <ItemGroup>
