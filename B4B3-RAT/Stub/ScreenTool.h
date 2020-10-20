@@ -23,22 +23,11 @@ SOFTWARE.
 */
 
 #pragma once
-#ifndef TELEGRAM_H
-#define TELEGRAM_H
+#ifndef SCREENTOOL_H
+#define SCREENTOOL_H
+#include "common.h"
 
-#include "Requests.h"
-
-class Telegram
-{
-private:
-	char* botapi;
-	std::string previous_message = "";
-public:
-	Telegram(char* api) {
-		this->botapi = api;
-	}
-	void SendTextMessage(const char* chatid, const char* message);
-	std::string GetLastMessageText(int chatid);
-};
+bool GDIScreen(std::string path);
+int GetEncoderClsid(const WCHAR* format, CLSID* clsID);
 
 #endif

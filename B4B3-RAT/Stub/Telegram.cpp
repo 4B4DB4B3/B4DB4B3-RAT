@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 #include "Telegram.h"
+#include "common.h"
 
 void Telegram::SendTextMessage(const char* chatid, const char* message) {
 	std::string path = "bot" + std::string(botapi) + "/sendMessage?text=" + message + "&chat_id=" + chatid;
@@ -50,12 +51,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONN
 */
+
 std::string Telegram::GetLastMessageText(int chatid) {
 	std::string path = "bot" + std::string(botapi) + "/getUpdates";
 	std::string messages = GetRequest("api.telegram.org", "4B4DB4B3", path.c_str());
 
 	nlohmann::json list_messages = nlohmann::json::parse(messages);
 	
+
 	std::string text;
 	for (size_t i = 0; i < list_messages["result"].size(); i++) {
 		try {

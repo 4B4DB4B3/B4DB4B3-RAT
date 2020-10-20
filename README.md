@@ -41,6 +41,13 @@
  /user[ID] service add     | [Name] [DisplayName] [C:\ProgramData\yourdriver.sys] [Type-Driver] [Start-Type] | add your driver in system, Check Type-Driver and Start-Type values in "Service manager parse table"    
  /user[ID] service delete  | [NameService]                                           | delete driver from system
 
+
+### Screen manager:
+ Command name              | Parameters                                              | Description
+ ------------------------- | ------------------------------------------------------- | -----------
+ /user[ID] screenshot      |                                                         | take screenshot, upload her on prnt.sc and send you 
+
+
 ### RAT:   
  Command name              | Parameters                                              | Description
  ------------------------- | ------------------------------------------------------- | -----------
@@ -48,7 +55,7 @@
 	
 # [Coming soon]
 - [x] Add file manager
-- [ ] Add function to get screenshot
+- [x] Add function to get screenshot
    - [ ] Add function to record desktop
    - [ ] Add function to record microphone
 - [x] Add more jokes (open url, block url, close process and etc.)
@@ -63,6 +70,7 @@ Date       | Time  | Description
 18.10.2020 | 18:40 | Code is refactored and optimized, fixed bugs (command inject dll didn't work), added new function in builder (write in scheduler task), updated GUI, added re-launch protection, added commands ![NEWUI](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/NEWUI.png)
 19.10.2020 | 01:30 | Deleted traces of debugging (sorry for this), added more information about PC ![NEWINFO](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/NEWINFO.png)
 19.10.2020 | 17:20 | Clear warnings, added Service manager ![SERVICE](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/SERVICE.png)   
+20.10.2020 | 11:19 | Code review, bug fix, added new function (screen manager) (wrote yourself api on wininet for work with prnt.sc api) ![SCREEN](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/SCREENTOOL.png)  
 
 ## Service manager parse table:
 ### [service add] params [Type] driver

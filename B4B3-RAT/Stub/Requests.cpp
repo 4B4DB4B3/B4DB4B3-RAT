@@ -21,16 +21,20 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+
 #include "Requests.h"
 
 std::string GetRequest(const char* url, const char* useragent, const char* path, const char* ContentType) {
 	InternetSetOption(0, 42, NULL, 0);
 
 	HINTERNET hSocket = InternetOpenA(useragent, INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, NULL);
-	if (hSocket != NULL) {
+	
+    if (hSocket != NULL) {
 		HINTERNET hConnection = InternetConnectA(hSocket, url, INTERNET_DEFAULT_HTTPS_PORT, NULL, NULL, INTERNET_SERVICE_HTTP, 0, 1);
-		if (hConnection != NULL) {
+		
+        if (hConnection != NULL) {
 			HINTERNET hRequest;
+
 			if (path == "") {
 				hRequest = HttpOpenRequestA(hConnection, "GET", NULL, NULL, NULL, 0, INTERNET_FLAG_RELOAD | INTERNET_FLAG_SECURE, 1);
 			}
@@ -53,12 +57,13 @@ std::string GetRequest(const char* url, const char* useragent, const char* path,
 					resultRss.append((char*)_DATA_RECIEVED, NO_BYTES_READ);
 				}
 
-				return std::string(resultRss);
+				return resultRss;
 			}
 			InternetCloseHandle(hRequest);
 		}
 		InternetCloseHandle(hConnection);
 	}
 	InternetCloseHandle(hSocket);
+
 	return "";
 }

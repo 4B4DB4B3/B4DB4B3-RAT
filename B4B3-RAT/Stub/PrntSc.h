@@ -23,22 +23,10 @@ SOFTWARE.
 */
 
 #pragma once
-#ifndef TELEGRAM_H
-#define TELEGRAM_H
+#ifndef PRNTSC_H
+#define PRNTSC_H
+#include "common.h"
 
-#include "Requests.h"
-
-class Telegram
-{
-private:
-	char* botapi;
-	std::string previous_message = "";
-public:
-	Telegram(char* api) {
-		this->botapi = api;
-	}
-	void SendTextMessage(const char* chatid, const char* message);
-	std::string GetLastMessageText(int chatid);
-};
+std::string UploadImage(const char* useragent, const char* file);
 
 #endif

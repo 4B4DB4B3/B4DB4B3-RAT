@@ -45,6 +45,9 @@ SOFTWARE.
 
 #include <psapi.h>
 
+#include <gdiplus.h>
+#pragma comment(lib, "GdiPlus.lib")
+
 #pragma comment(lib, "Urlmon.lib")
 
 #endif

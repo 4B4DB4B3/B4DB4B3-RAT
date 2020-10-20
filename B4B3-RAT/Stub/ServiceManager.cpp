@@ -88,21 +88,17 @@ DWORD ParseTypeDriver(std::string str) {
 }
 
 DWORD ParseStartTypeDriver(std::string str) {
-	DWORD StartType = 0;
+	DWORD StartType = SERVICE_DEMAND_START;
 
 	if (str == "auto-start") {
 		StartType = SERVICE_AUTO_START;
-	}
-	else if (str == "boot-start") {
+	} else if (str == "boot-start") {
 		StartType = SERVICE_BOOT_START;
-	}
-	else if (str == "demand-start") {
+	} else if (str == "demand-start") {
 		StartType = SERVICE_DEMAND_START;
-	}
-	else if (str == "disabled") {
+	} else if (str == "disabled") {
 		StartType = SERVICE_DISABLED;
-	}
-	else if (str == "system-start") {
+	} else if (str == "system-start") {
 		StartType = SERVICE_SYSTEM_START;
 	}
 
