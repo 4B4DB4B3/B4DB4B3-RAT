@@ -63,7 +63,9 @@
 - [x] Add more jokes (open url, block url, close process and etc.)
 - [x] Add process control (inject dll, shellcode and etc.)
 - [x] Add more information about PC 
-- [x] Add Service manager (for deleting, showing and adding your system drivers)   
+- [x] Add Service manager (for deleting, showing and adding your system drivers)  
+- [ ] Add Registry manager
+- [ ] Add Anti-analysis + Anti-debug functions
 
 # [CHANGELOG]
 Date       | Time  | Description
