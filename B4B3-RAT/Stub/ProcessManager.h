@@ -30,6 +30,7 @@ SOFTWARE.
 std::string ProcessList();
 bool CloseProcess(std::string procname);
 bool InjectDLL(const char* procname, const char* dllname);
+bool InjectShell(DWORD pid, std::string shell);
 DWORD PIDByName(std::string name);
 
 #endif

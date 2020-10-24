@@ -100,6 +100,22 @@ bool InjectDLL(const char* procname, const char* dllname) {
 	return true;
 }
 
+bool InjectShell(DWORD pid, std::string shell) {
+	bool result = false;
+	HANDLE hProc = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pid);
+	
+	PVOID addr = VirtualAllocEx(hProc, 0, shell.size(), MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+	
+	if (WriteProcessMemory(hProc, addr, shell.c_str(), shell.size(), 0)) {
+		if (CreateRemoteThread(hProc, 0, 0, (LPTHREAD_START_ROUTINE)addr, 0, 0, 0) != 0) {
+			result = true;
+		}
+	}
+
+	CloseHandle(hProc);
+	return result;
+}
+
 DWORD PIDByName(std::string name) {
 	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 	if (hSnap != NULL) {
