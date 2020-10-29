@@ -8,7 +8,10 @@
  #### P.S: Around 400-300 KB :)
  ![WEIGHT](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/WEIGHT.png)   
    
-# [Commands (Will be added)]   
+# [Commands (Will be added)]
+<details>
+	<summary>View command list</summary>
+	
 ### Process manager:      
  Command name         | Parameters                             | Description
  -------------------- | -------------------------------------- | -----------
@@ -54,6 +57,8 @@
  Command name              | Parameters                                              | Description
  ------------------------- | ------------------------------------------------------- | -----------
  /online                   |                                                         | show online users   
+
+</details>
 	
 # [Coming soon]
 - [x] Add file manager
@@ -67,15 +72,20 @@
 - [ ] Add Anti-analysis + Anti-debug functions
 
 # [CHANGELOG]
+<details>
+  <summary>View changelog</summary>
+	
 Date       | Time  | Description
 ---------- | ----- | -----------
 17.10.2020 | 16:30 | Code is optimized, added commands   
 18.10.2020 | 18:40 | Code is refactored and optimized, fixed bugs (command inject dll didn't work), added new function in builder (write in scheduler task), updated GUI, added re-launch protection, added commands ![NEWUI](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/NEWUI.png)
 19.10.2020 | 01:30 | Deleted traces of debugging (sorry for this), added more information about PC ![NEWINFO](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/NEWINFO.png)
 19.10.2020 | 17:20 | Clear warnings, added Service manager ![SERVICE](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/SERVICE.png)   
-20.10.2020 | 11:19 | Code review, bug fix, added new function (screen manager) (wrote yourself api on wininet for work with prnt.sc api) ![SCREEN](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/SCREENTOOL.png)  
+20.10.2020 | 11:19 | Code review, bug fix, added new function (screen manager) (wrote yourself api on wininet for work with prnt.sc api)    ![SCREEN](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/SCREENTOOL.png)  
 20.10.2020 | 18:49 | Update GUI (change location objects)
 24.10.2020 | 17:11 | Added function for inject shellcode in process ![SHELLCODE](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/INJECT_SHELL.png)
+
+</details>
 
 ## Service manager parse table:
 ### [service add] params [Type] driver
