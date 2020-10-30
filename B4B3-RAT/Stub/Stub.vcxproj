@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BotNet.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="Information.cpp" />
     <ClCompile Include="Manager.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BotNet.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="Information.h" />

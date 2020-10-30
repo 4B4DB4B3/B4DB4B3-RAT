@@ -52,6 +52,11 @@
  ------------------------- | ------------------------------------------------------- | -----------
  /user[ID] screenshot      |                                                         | take screenshot, upload her on prnt.sc and send you 
 
+### BotNet:
+ Command name              | Parameters                                              | Description
+ ------------------------- | ------------------------------------------------------- | -----------
+ /botnet start             | [https://google.com]                                    | all users send requests on site
+ /botnet stop              |                                                         | stop sending requests
 
 ### RAT:   
  Command name              | Parameters                                              | Description
@@ -84,6 +89,8 @@ Date       | Time  | Description
 20.10.2020 | 11:19 | Code review, bug fix, added new function (screen manager) (wrote yourself api on wininet for work with prnt.sc api)    ![SCREEN](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/SCREENTOOL.png)  
 20.10.2020 | 18:49 | Update GUI (change location objects)
 24.10.2020 | 17:11 | Added function for inject shellcode in process ![SHELLCODE](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/INJECT_SHELL.png)
+30.10.2020 | 14:29 | Added botnet ![BOTNET](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/BotNet.png)
+
 
 </details>
 

