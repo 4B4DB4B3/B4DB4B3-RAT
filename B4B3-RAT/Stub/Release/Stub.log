@@ -1,8 +1,8 @@
-﻿  BotNet.cpp
+﻿  ServiceManager.cpp
   WinMain.cpp
   Создание кода
-  0 of 1652 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  4 of 1654 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    3 functions were new in current compilation
+    16 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
   Stub.vcxproj -> D:\VisualStudio\source\repos\B4B3-RAT\Release\Stub.exe

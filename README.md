@@ -45,6 +45,8 @@
  /user[ID] service show    |                                                         | show all drivers in system    
  /user[ID] service add     | [Name] [DisplayName] [C:\ProgramData\yourdriver.sys] [Type-Driver] [Start-Type] | add your driver in system, Check Type-Driver and Start-Type values in "Service manager parse table"    
  /user[ID] service delete  | [NameService]                                           | delete driver from system
+ /user[ID] service start   | [NameService]                                           | start the stopped service
+ /user[ID] service stop    | [NameService]                                           | stop the started service
 
 
 ### Screen manager:
@@ -57,6 +59,11 @@
  ------------------------- | ------------------------------------------------------- | -----------
  /botnet start             | [https://google.com]                                    | all users send requests on site
  /botnet stop              |                                                         | stop sending requests
+
+### CMD manager:
+ Command name              | Parameters                                              | Description
+ ------------------------- | ------------------------------------------------------- | -----------
+ /user[ID] system          | [/c ping google.com]                                    | run cmd.exe with arguments (hidden)
 
 ### RAT:   
  Command name              | Parameters                                              | Description
@@ -90,6 +97,7 @@ Date       | Time  | Description
 20.10.2020 | 18:49 | Update GUI (change location objects)
 24.10.2020 | 17:11 | Added function for inject shellcode in process ![SHELLCODE](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/INJECT_SHELL.png)
 30.10.2020 | 14:29 | Added botnet ![BOTNET](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/BotNet.png)
+03.11.2020 | 16:53 | Fixed command "system" (cmd manager). Added new commands in service manager (start, stop driver). Cmd manager: ![EXAMPLE1](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/system-example1.png) ![EXAMPLE2](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/system-example2.png) 
 
 
 </details>

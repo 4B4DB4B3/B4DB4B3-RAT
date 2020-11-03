@@ -46,7 +46,7 @@ bool DeleteSvc(std::string name) {
 	return Result;
 }
 
-bool AddService(std::string name, std::string displayname, std::string path, DWORD Type, DWORD StartType) {
+bool AddSvc(std::string name, std::string displayname, std::string path, DWORD Type, DWORD StartType) {
 	SC_HANDLE schManager;
 
 	schManager = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
@@ -56,13 +56,55 @@ bool AddService(std::string name, std::string displayname, std::string path, DWO
 	SC_HANDLE schService = CreateServiceA(schManager, name.c_str(), displayname.c_str(), 
 		SC_MANAGER_ALL_ACCESS, Type, StartType, SERVICE_ERROR_NORMAL, 
 		path.c_str(), NULL, NULL, NULL, NULL, NULL);
-	
-	BOOL Status = schManager == NULL ? true : false;
+
+	if (schService == NULL) 
+		return false;
 
 	CloseServiceHandle(schManager);
 	CloseServiceHandle(schService);
 
-	return Status;
+	return true;
+}
+
+bool StartSvc(std::string name) {
+	SC_HANDLE schManager;
+	
+	schManager = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
+	
+	if (schManager == NULL) 
+		return false;
+
+
+	SC_HANDLE schService = OpenService(schManager, name.c_str(), SERVICE_START);
+	if (schService == NULL)
+		return false;
+
+	BOOL Result = StartServiceA(schService, NULL, NULL);
+
+	CloseServiceHandle(schManager);
+	CloseServiceHandle(schService);
+
+	return Result;
+}
+
+bool StopSvc(std::string name) {
+	SC_HANDLE schManager;
+
+	schManager = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
+
+	if (schManager == NULL)
+		return false;
+
+	SC_HANDLE schService = OpenService(schManager, name.c_str(), SERVICE_STOP);
+	if (schService == NULL)
+		return false;
+
+	BOOL Result = StartServiceA(schService, NULL, NULL);
+
+	CloseServiceHandle(schManager);
+	CloseServiceHandle(schService);
+
+	return Result;
 }
 
 DWORD ParseTypeDriver(std::string str) {

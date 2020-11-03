@@ -29,7 +29,9 @@ SOFTWARE.
 
 std::string ServiceList();
 bool DeleteSvc(std::string name);
-bool AddService(std::string name, std::string displayname, std::string path, DWORD Type, DWORD StartType);
+bool AddSvc(std::string name, std::string displayname, std::string path, DWORD Type, DWORD StartType);
+bool StartSvc(std::string name);
+bool StopSvc(std::string name);
 
 DWORD ParseTypeDriver(std::string str);
 DWORD ParseStartTypeDriver(std::string str);

