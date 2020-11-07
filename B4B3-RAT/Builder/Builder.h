@@ -30,6 +30,8 @@ SOFTWARE.
 #pragma pack(push, 1)
 struct Settings {
 	char botapi[128] = { 0 };
+	char key[CryptoPP::AES::DEFAULT_KEYLENGTH] = { 0 };
+
 	char chatid[128] = { 0 };
 	char drop[128] = { 0 };
 	bool drop_run;
@@ -42,7 +44,7 @@ struct Settings {
 
 	char client_delay[128] = { 0 };
 	bool auto_delete;
-	bool protect_debuggers;
+	bool protector;
 };
 #pragma pack(pop)
 

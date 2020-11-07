@@ -75,6 +75,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>D:\CryptoPP;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\CryptoPP;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -109,6 +111,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>cryptlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableDpiAwareness>true</EnableDpiAwareness>
@@ -145,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="Builder.cpp" />
     <ClCompile Include="DlgProc.cpp" />
+    <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Requests.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -152,6 +156,7 @@
     <ClInclude Include="Builder.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="DlgProc.h" />
+    <ClInclude Include="Manager.h" />
     <ClInclude Include="Requests.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

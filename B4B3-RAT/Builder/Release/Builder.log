@@ -1,7 +1,13 @@
-﻿  DlgProc.cpp
+﻿  Builder.cpp
+  DlgProc.cpp
+  Manager.cpp
+  Requests.cpp
+  WinMain.cpp
+D:\VisualStudio\source\repos\B4B3-RAT\Builder\WinMain.cpp(29,9): warning C4191: приведение типов: небезопасное преобразование "INT_PTR (__cdecl *)(HWND,UINT,WPARAM,LPARAM)" в "DLGPROC"
+           Вызов этой функции через результирующий указатель может вызвать сбой программы
   Создание кода
-  1 of 390 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+  2 of 620 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    20 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
   Builder.vcxproj -> D:\VisualStudio\source\repos\B4B3-RAT\Release\Builder.exe

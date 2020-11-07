@@ -98,7 +98,7 @@ Date       | Time  | Description
 24.10.2020 | 17:11 | Added function for inject shellcode in process ![SHELLCODE](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/INJECT_SHELL.png)
 30.10.2020 | 14:29 | Added botnet ![BOTNET](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/BotNet.png)
 03.11.2020 | 16:53 | Fixed command "system" (cmd manager). Added new commands in service manager (start, stop driver). Cmd manager: ![EXAMPLE1](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/system-example1.png) ![EXAMPLE2](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/system-example2.png) 
-
+07.11.2020 | 22:16 | Code refactored. Warnings deleted. Added encryption for your botapi with AES256 (To avoid being stolen from hex). Update list of processes (AntiDebug). ![BeforeBotApi](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/Before_BotApi.png) ![AfterBotApi](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/After_BotApi.png)
 
 </details>
 

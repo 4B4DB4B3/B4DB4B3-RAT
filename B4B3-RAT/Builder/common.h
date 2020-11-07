@@ -31,4 +31,8 @@ SOFTWARE.
 #include <WinInet.h>
 #pragma comment(lib, "WinInet.lib")
 
+#include <modes.h>
+#include <aes.h>
+#include <filters.h>
+
 #endif

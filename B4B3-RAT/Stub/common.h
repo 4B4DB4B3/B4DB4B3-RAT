@@ -50,4 +50,8 @@ SOFTWARE.
 
 #pragma comment(lib, "Urlmon.lib")
 
+#include <modes.h>
+#include <aes.h>
+#include <filters.h>
+
 #endif

