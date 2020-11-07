@@ -7,7 +7,10 @@
 ### [Weight of stub and builder]  
  #### P.S: Around 400-300 KB :)
  ![WEIGHT](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/WEIGHT.png)   
-   
+ #### Update: (latest) i sad :( (but it's not too big)
+ ![UP_WEIGHT](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/raise_weight.png)   
+
+
 # [Commands (Will be added)]
 <details>
 	<summary>View command list</summary>
