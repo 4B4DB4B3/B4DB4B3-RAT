@@ -68,6 +68,11 @@
  ------------------------- | ------------------------------------------------------- | -----------
  /user[ID] system          | [/c ping google.com]                                    | run cmd.exe with arguments (hidden)
 
+### CMD manager:
+ Command name              | Parameters                                              | Description
+ ------------------------- | ------------------------------------------------------- | -----------
+ /user[ID] system          | [/c ping google.com]                                    | run cmd.exe with arguments (hidden)
+
 ### RAT:   
  Command name              | Parameters                                              | Description
  ------------------------- | ------------------------------------------------------- | -----------

