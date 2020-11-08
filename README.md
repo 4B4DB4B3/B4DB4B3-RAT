@@ -68,10 +68,11 @@
  ------------------------- | ------------------------------------------------------- | -----------
  /user[ID] system          | [/c ping google.com]                                    | run cmd.exe with arguments (hidden)
 
-### CMD manager:
+### File cryptor:
  Command name              | Parameters                                              | Description
  ------------------------- | ------------------------------------------------------- | -----------
- /user[ID] system          | [/c ping google.com]                                    | run cmd.exe with arguments (hidden)
+ /user[ID] filecrypt       | [C:\Path\To\File.exe] [yourkey]                         | crypt file with AES256
+ /user[ID] filedecrypt     | [C:\Path\To\File.exe] [yourkey]                         | decrypt file with AES256
 
 ### RAT:   
  Command name              | Parameters                                              | Description
@@ -107,6 +108,7 @@ Date       | Time  | Description
 30.10.2020 | 14:29 | Added botnet ![BOTNET](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/BotNet.png)
 03.11.2020 | 16:53 | Fixed command "system" (cmd manager). Added new commands in service manager (start, stop driver). Cmd manager: ![EXAMPLE1](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/system-example1.png) ![EXAMPLE2](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/system-example2.png) 
 07.11.2020 | 22:16 | Code refactored. Warnings deleted. Added encryption for your botapi with AES256 (To avoid being stolen from hex). Update list of processes (AntiDebug). ![BeforeBotApi](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/Before_BotApi.png) ![AfterBotApi](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/After_BotApi.png)
+08.11.2020 | 20:25 | Added file cryptor. See command list ![1](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/FileCrypt/1.png) ![2](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/FileCrypt/2.png) ![3](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/FileCrypt/3.png) ![4](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/FileCrypt/4.png)
 
 </details>
 
