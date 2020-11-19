@@ -24,4 +24,6 @@ SOFTWARE.
 
 #include "common.h"
 
-std::string GetRequest(const char* url, const char* useragent, const char* path = "", const char* ContentType = "");
+namespace Requests {
+	std::string GetRequest(const char* url, const char* useragent, const char* path = "", const char* ContentType = "");
+}

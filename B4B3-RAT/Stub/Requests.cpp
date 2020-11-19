@@ -24,7 +24,7 @@ SOFTWARE.
 
 #include "Requests.h"
 
-std::string GetRequest(const char* url, const char* useragent, const char* path, const char* ContentType) {
+std::string Requests::GetRequest(const char* url, const char* useragent, const char* path, const char* ContentType) {
 	InternetSetOption(0, 42, NULL, 0);
 
 	HINTERNET hSocket = InternetOpenA(useragent, INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, NULL);

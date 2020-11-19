@@ -27,7 +27,9 @@ SOFTWARE.
 #define FILECRYPTOR_H
 #include "common.h"
 
-BOOL FileCrypt(std::string path, std::string key);
-BOOL FileDecrypt(std::string path, std::string key);
+namespace FileCryptor {
+	BOOL FileCrypt(std::string path, std::string key);
+	BOOL FileDecrypt(std::string path, std::string key);
+}
 
 #endif

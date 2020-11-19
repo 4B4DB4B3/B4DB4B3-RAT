@@ -27,9 +27,11 @@ SOFTWARE.
 #define INFORMATION_H
 #include "common.h"
 
-std::string GetOS();
-std::string GetPCName();
-std::string GetIP();
-std::string GetProcessorBrand();
+namespace Information {
+	std::string GetOS();
+	std::string GetPCName();
+	std::string GetIP();
+	std::string GetProcessorBrand();
+}
 
 #endif

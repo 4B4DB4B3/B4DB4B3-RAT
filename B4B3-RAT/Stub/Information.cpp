@@ -25,7 +25,7 @@ SOFTWARE.
 #include "Information.h"
 #include "Requests.h"
 
-std::string GetOS() {
+std::string Information::GetOS() {
     OSVERSIONINFO vi;
     vi.dwOSVersionInfoSize = sizeof(vi);
     if (GetVersionEx(&vi) == 0) 
@@ -57,18 +57,18 @@ std::string GetOS() {
 	}
 }
 
-std::string GetIP() {
-	return GetRequest("api.ipify.org", "4B4DB4B3");
+std::string Information::GetIP() {
+	return Requests::GetRequest("api.ipify.org", "4B4DB4B3");
 }
 
-std::string GetPCName() {
+std::string Information::GetPCName() {
 	char buff[512] = { 0 };
 	DWORD len = sizeof(buff) - 1;
 	GetUserNameA(buff, &len);
 	return buff;
 }
 
-std::string GetProcessorBrand() {
+std::string Information::GetProcessorBrand() {
 	int CPUInfo[4] = { -1 };
 
 	__cpuidex(CPUInfo, 0x80000000, 0);

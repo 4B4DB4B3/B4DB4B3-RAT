@@ -27,6 +27,10 @@ SOFTWARE.
 #define FILEMANAGER_H
 #include "common.h"
 
-std::string DirectoryObjectsList(std::string dir);
+namespace FileManager {
+	std::string DirectoryObjectsList(std::string dir);
+	std::string ReadFile(std::string path);
+	BOOL WriteFile(std::string path, std::string text);
+}
 
 #endif

@@ -25,7 +25,7 @@ SOFTWARE.
 #include "PrntSc.h"
 
 // Copyright (c) 2020 4B4DB4B3
-std::string UploadImage(const char* useragent, const char* file) {
+std::string PrntSc::UploadImage(const char* useragent, const char* file) {
     const char* headers = "Content-Type: multipart/form-data; boundary=----B4DB4B3";
 
     std::string data = "------B4DB4B3\r\n"

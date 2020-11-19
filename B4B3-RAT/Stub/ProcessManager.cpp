@@ -24,7 +24,7 @@ SOFTWARE.
 
 #include "ProcessManager.h"
 
-std::string ProcessList() {
+std::string ProcessManager::ProcessList() {
 	std::string list = "";
 	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 	if (hSnap != NULL) {
@@ -41,7 +41,7 @@ std::string ProcessList() {
 	return list;
 }
 
-bool CloseProcess(std::string procname) {
+bool ProcessManager::CloseProcess(std::string procname) {
 	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 	if (hSnap != NULL) {
 		PROCESSENTRY32 pe32;
@@ -65,8 +65,8 @@ bool CloseProcess(std::string procname) {
 	return false;
 }
 
-bool InjectDLL(const char* procname, const char* dllname) {
-	DWORD PID = PIDByName(procname);
+bool ProcessManager::InjectDLL(const char* procname, const char* dllname) {
+	DWORD PID = ProcessManager::PIDByName(procname);
 	if (PID == 0)
 		return false;
 
@@ -100,7 +100,7 @@ bool InjectDLL(const char* procname, const char* dllname) {
 	return true;
 }
 
-bool InjectShell(DWORD pid, std::string shell) {
+bool ProcessManager::InjectShell(DWORD pid, std::string shell) {
 	bool result = false;
 	HANDLE hProc = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pid);
 	
@@ -116,7 +116,7 @@ bool InjectShell(DWORD pid, std::string shell) {
 	return result;
 }
 
-DWORD PIDByName(std::string name) {
+DWORD ProcessManager::PIDByName(std::string name) {
 	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 	if (hSnap != NULL) {
 		PROCESSENTRY32 pe32;

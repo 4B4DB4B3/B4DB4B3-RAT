@@ -26,7 +26,7 @@ SOFTWARE.
 
 void Telegram::SendTextMessage(const char* chatid, const char* message) {
 	std::string path = "bot" + std::string(botapi) + "/sendMessage?text=" + message + "&chat_id=" + chatid;
-	GetRequest("api.telegram.org", "4B4DB4B3", path.c_str());
+	Requests::GetRequest("api.telegram.org", "4B4DB4B3", path.c_str());
 }
 
 /*
@@ -54,7 +54,7 @@ OUT OF OR IN CONN
 
 std::string Telegram::GetLastMessageText(int chatid) {
 	std::string path = "bot" + std::string(botapi) + "/getUpdates";
-	std::string messages = GetRequest("api.telegram.org", "4B4DB4B3", path.c_str());
+	std::string messages = Requests::GetRequest("api.telegram.org", "4B4DB4B3", path.c_str());
 
 	nlohmann::json list_messages = nlohmann::json::parse(messages);
 	

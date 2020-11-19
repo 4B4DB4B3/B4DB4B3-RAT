@@ -26,5 +26,5 @@ SOFTWARE.
 #include "resource.h"
 
 int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, INT) {
-	return DialogBoxA(hInst, MAKEINTRESOURCEA(IDD_DIALOGBAR), 0, (DLGPROC)DlgMain);
+	return DialogBoxA(hInst, MAKEINTRESOURCEA(IDD_DIALOGBAR), 0, (DLGPROC)DlgProc::DlgMain);
 }

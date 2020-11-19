@@ -24,7 +24,7 @@ SOFTWARE.
 
 #include "FileManager.h"
 
-std::string DirectoryObjectsList(std::string dir) {
+std::string FileManager::DirectoryObjectsList(std::string dir) {
 	std::string names;
 	std::string search_path = dir + "/*";
 	WIN32_FIND_DATA fd;
@@ -42,4 +42,31 @@ std::string DirectoryObjectsList(std::string dir) {
 		::FindClose(hFind);
 	}
 	return names;
+}
+
+std::string FileManager::ReadFile(std::string path) {
+	std::string text = "";
+
+	std::ifstream file(path);
+	if (file.is_open()) {
+		std::string tmp = "";
+		while (std::getline(file, tmp)) {
+			text += tmp;
+		}
+		file.close();
+	}
+	
+	return text;
+}
+
+BOOL FileManager::WriteFile(std::string path, std::string text) {
+	std::ofstream file(path);
+	if (file.is_open()) {
+		file << text;
+		file.close();
+
+		return TRUE;
+	}
+
+	return FALSE;
 }

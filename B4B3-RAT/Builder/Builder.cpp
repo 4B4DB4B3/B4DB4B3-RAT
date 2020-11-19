@@ -24,7 +24,7 @@ SOFTWARE.
 
 #include "Builder.h"
 
-BOOL MakeFile(const char* stub, const char* output, Settings* s) {
+BOOL Builder::MakeFile(const char* stub, const char* output, Builder::Settings* s) {
 	std::ifstream f_stub(stub, std::ifstream::binary);
 	std::ofstream f_out(output, std::ofstream::binary);
 

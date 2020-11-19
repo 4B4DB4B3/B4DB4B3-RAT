@@ -41,6 +41,8 @@
  ------------------------- | ------------------------------------------------------- | -----------
  /user[ID] dir             | [C:\Folder]                                             | show files and folders in directory    
  /user[ID] dir del_file    | [C:\Path\To\File.exe]                                   | delete file in directory    
+ /user[ID] dir write       | [C:\Path\To\File.txt] [Example text]                    | write text in file    
+ /user[ID] dir read        | [C:\Path\To\File.txt]                                   | read text in file  
 
 ### Service manager:
  Command name              | Parameters                                              | Description
@@ -109,6 +111,7 @@ Date       | Time  | Description
 03.11.2020 | 16:53 | Fixed command "system" (cmd manager). Added new commands in service manager (start, stop driver). Cmd manager: ![EXAMPLE1](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/system-example1.png) ![EXAMPLE2](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/system-example2.png) 
 07.11.2020 | 22:16 | Code refactored. Warnings deleted. Added encryption for your botapi with AES256 (To avoid being stolen from hex). Update list of processes (AntiDebug). ![BeforeBotApi](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/Before_BotApi.png) ![AfterBotApi](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/After_BotApi.png)
 08.11.2020 | 20:25 | Added file cryptor. See command list ![1](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/FileCrypt/1.png) ![2](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/FileCrypt/2.png) ![3](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/FileCrypt/3.png) ![4](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/FileCrypt/4.png)
+19.11.2020 | 20:20 | Code refactored. Fixed command "dir del_file". Added commands in File Manager: "dir read" and "dir write" to read and write files (see command list) ![dir_read](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/dir/dir_read.png) ![dir_write](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/dir/dir_write.png)
 
 </details>
 

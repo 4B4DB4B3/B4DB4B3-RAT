@@ -27,6 +27,8 @@ SOFTWARE.
 #define PRNTSC_H
 #include "common.h"
 
-std::string UploadImage(const char* useragent, const char* file);
+namespace PrntSc {
+	std::string UploadImage(const char* useragent, const char* file);
+}
 
 #endif

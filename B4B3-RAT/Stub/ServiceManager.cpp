@@ -1,6 +1,6 @@
 #include "ServiceManager.h"
 
-std::string ServiceList() {
+std::string ServiceManager::ServiceList() {
 	std::string result = "";
 
 	LPVOID DriverList[1024];
@@ -25,7 +25,7 @@ std::string ServiceList() {
 	return result;
 }
 
-bool DeleteSvc(std::string name) {
+bool ServiceManager::DeleteSvc(std::string name) {
 	SC_HANDLE schManager, schService;
 	
 	schManager = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
@@ -46,7 +46,7 @@ bool DeleteSvc(std::string name) {
 	return Result;
 }
 
-bool AddSvc(std::string name, std::string displayname, std::string path, DWORD Type, DWORD StartType) {
+bool ServiceManager::AddSvc(std::string name, std::string displayname, std::string path, DWORD Type, DWORD StartType) {
 	SC_HANDLE schManager;
 
 	schManager = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
@@ -66,7 +66,7 @@ bool AddSvc(std::string name, std::string displayname, std::string path, DWORD T
 	return true;
 }
 
-bool StartSvc(std::string name) {
+bool ServiceManager::StartSvc(std::string name) {
 	SC_HANDLE schManager;
 	
 	schManager = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
@@ -87,7 +87,7 @@ bool StartSvc(std::string name) {
 	return Result;
 }
 
-bool StopSvc(std::string name) {
+bool ServiceManager::StopSvc(std::string name) {
 	SC_HANDLE schManager;
 
 	schManager = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
@@ -107,7 +107,7 @@ bool StopSvc(std::string name) {
 	return Result;
 }
 
-DWORD ParseTypeDriver(std::string str) {
+DWORD ServiceManager::ParseTypeDriver(std::string str) {
 	DWORD Type = SERVICE_TYPE_ALL;
 
 	if (str == "win32-service") {
@@ -129,7 +129,7 @@ DWORD ParseTypeDriver(std::string str) {
 	return Type;
 }
 
-DWORD ParseStartTypeDriver(std::string str) {
+DWORD ServiceManager::ParseStartTypeDriver(std::string str) {
 	DWORD StartType = SERVICE_DEMAND_START;
 
 	if (str == "auto-start") {

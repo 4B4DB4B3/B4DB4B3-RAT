@@ -27,6 +27,8 @@ SOFTWARE.
 #define DLGPROC_H
 #include "common.h"
 
-INT_PTR DlgMain(HWND, UINT, WPARAM, LPARAM);
+namespace DlgProc {
+	INT_PTR DlgMain(HWND, UINT, WPARAM, LPARAM);
+}
 
 #endif

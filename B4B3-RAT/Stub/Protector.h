@@ -27,6 +27,8 @@ SOFTWARE.
 #define PROTECTOR_H
 #include "common.h"
 
-void AntiProcesses();
+namespace Protector {
+	void AntiProcesses();
+}
 
 #endif

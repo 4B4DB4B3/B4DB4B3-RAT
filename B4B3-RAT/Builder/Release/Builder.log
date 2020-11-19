@@ -1,6 +1,12 @@
-﻿  DlgProc.cpp
-  Previous IPDB not found, fall back to full compilation.
+﻿  Builder.cpp
+  DlgProc.cpp
+  Manager.cpp
+  Requests.cpp
+  WinMain.cpp
+D:\VisualStudio\source\repos\B4B3-RAT\Builder\WinMain.cpp(29,9): warning C4191: приведение типов: небезопасное преобразование "INT_PTR (__cdecl *)(HWND,UINT,WPARAM,LPARAM)" в "DLGPROC"
+           Вызов этой функции через результирующий указатель может вызвать сбой программы
   Создание кода
+  Previous IPDB not found, fall back to full compilation.
   All 620 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Создание кода завершено
   Builder.vcxproj -> D:\VisualStudio\source\repos\B4B3-RAT\Release\Builder.exe

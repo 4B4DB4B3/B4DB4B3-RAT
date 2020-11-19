@@ -26,7 +26,7 @@ SOFTWARE.
 #include "Manager.h"
 #include <winternl.h>
 
-void AntiProcesses() {
+void Protector::AntiProcesses() {
 	HANDLE hSnap;
 	PROCESSENTRY32 pe32;
 	pe32.dwSize = sizeof(PROCESSENTRY32);
@@ -67,7 +67,7 @@ void AntiProcesses() {
 		if (hSnap != NULL) {
 			if (Process32First(hSnap, &pe32)) {
 				do {
-					process = ToLower(pe32.szExeFile);
+					process = Manager::ToLower(pe32.szExeFile);
 					for (size_t i = 0; i < processes.size(); i++) {
 						if (process.find(processes[i]) != std::string::npos) {
 							ExitProcess(0);

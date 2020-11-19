@@ -1,6 +1,6 @@
 #include "Manager.h"
 
-std::string RandomStr(int len) {
+std::string Manager::RandomStr(int len) {
 	std::string tmp_s;
 	static const char alphanum[] =
 		"0123456789"
@@ -15,7 +15,7 @@ std::string RandomStr(int len) {
 	return tmp_s;
 }
 
-std::string EncryptStr(std::string text, std::string key) {
+std::string Manager::EncryptStr(std::string text, std::string key) {
 	byte bKey[CryptoPP::AES::DEFAULT_KEYLENGTH], iv[CryptoPP::AES::BLOCKSIZE];
 	memcpy(bKey, key.c_str(), CryptoPP::AES::DEFAULT_KEYLENGTH);
 	memset(iv, 0x00, CryptoPP::AES::BLOCKSIZE);

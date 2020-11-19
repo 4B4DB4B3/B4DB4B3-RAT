@@ -27,7 +27,9 @@ SOFTWARE.
 #define SCREENTOOL_H
 #include "common.h"
 
-bool GDIScreen(std::string path);
-int GetEncoderClsid(const WCHAR* format, CLSID* clsID);
+namespace ScreenTool {
+	bool GDIScreen(std::string path);
+	int GetEncoderClsid(const WCHAR* format, CLSID* clsID);
+}
 
 #endif

@@ -3,8 +3,10 @@
 #define MANAGER_H
 #include "common.h"
 
-std::string RandomStr(int len);
+namespace Manager {
+	std::string RandomStr(int len);
 
-std::string EncryptStr(std::string text, std::string key);
+	std::string EncryptStr(std::string text, std::string key);
+}
 
 #endif

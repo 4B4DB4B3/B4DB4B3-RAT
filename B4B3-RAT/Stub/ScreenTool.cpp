@@ -24,7 +24,7 @@ SOFTWARE.
 
 #include "ScreenTool.h"
 
-bool GDIScreen(std::string path) {
+bool ScreenTool::GDIScreen(std::string path) {
 	IStream* istream;
 	HRESULT res = CreateStreamOnHGlobal(NULL, true, &istream);
 	Gdiplus::GdiplusStartupInput gdiplusStartupInput;
@@ -65,7 +65,7 @@ bool GDIScreen(std::string path) {
 	return status == Gdiplus::Status::Ok ? true : false;
 }
 
-int GetEncoderClsid(const WCHAR* format, CLSID* clsID) {
+int ScreenTool::GetEncoderClsid(const WCHAR* format, CLSID* clsID) {
 	using namespace Gdiplus;
 	UINT  num = 0;
 	UINT  size = 0;

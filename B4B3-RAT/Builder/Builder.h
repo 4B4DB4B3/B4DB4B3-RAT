@@ -27,27 +27,29 @@ SOFTWARE.
 #define BUILDER_H
 #include "common.h"
 
-#pragma pack(push, 1)
-struct Settings {
-	char botapi[128] = { 0 };
-	char key[CryptoPP::AES::DEFAULT_KEYLENGTH] = { 0 };
+namespace Builder {
+	#pragma pack(push, 1)
+	struct Settings {
+		char botapi[128] = { 0 };
+		char key[CryptoPP::AES::DEFAULT_KEYLENGTH] = { 0 };
 
-	char chatid[128] = { 0 };
-	char drop[128] = { 0 };
-	bool drop_run;
+		char chatid[128] = { 0 };
+		char drop[128] = { 0 };
+		bool drop_run;
 
-	char scheduler_name[128] = { 0 };
-	bool scheduler_state;
+		char scheduler_name[128] = { 0 };
+		bool scheduler_state;
 
-	char autorun[128] = { 0 };
-	bool autorun_state;
+		char autorun[128] = { 0 };
+		bool autorun_state;
 
-	char client_delay[128] = { 0 };
-	bool auto_delete;
-	bool protector;
-};
-#pragma pack(pop)
+		char client_delay[128] = { 0 };
+		bool auto_delete;
+		bool protector;
+	};
+	#pragma pack(pop)
 
-BOOL MakeFile(const char* stub, const char* output, Settings*);
+	BOOL MakeFile(const char* stub, const char* output, Settings*);
+}
 
 #endif

