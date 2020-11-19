@@ -264,8 +264,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 					}
 
 					else if (params[1] == "write") {
-						// dir write C:\path\to\text.txt Text    -  to  -  Text
-						std::string write_text = command.replace(0, command.find(params[2] + " "), "");
+						// dir write C:\path\to\text.txt text example    -  to  -  Text
+						std::string write_text = command.replace(0, command.find(params[2]) + params[2].length() + 1, "");
 						if (FileManager::WriteFile(params[2], write_text)) {
 							api.SendTextMessage(s.chatid, "Success! Text is written");
 						}
