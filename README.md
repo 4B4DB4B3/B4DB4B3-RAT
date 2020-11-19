@@ -5,10 +5,8 @@
  ![UI](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/NEWUI.png)   
  ![EXAMPLE](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/COMMANDLIST.png)   
 ### [Weight of stub and builder]  
- #### P.S: Around 400-300 KB :)
- ![WEIGHT](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/WEIGHT.png)   
- #### Update: (latest) i sad :( (but it's not too big)
- ![UP_WEIGHT](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/raise_weight.png)   
+ #### Around 600-500 KB
+ ![WEIGHT](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/WEIGHT.png)  
 
 
 # [Commands (Will be added)]
