@@ -121,7 +121,7 @@ win32-service            | SERVICE_WIN32
 adapter-service          | SERVICE_ADAPTER
 kernel-driver            | SERVICE_DRIVER
 interactive-process      | SERVICE_INTERACTIVE_PROCESS
-user-serice              | SERVICE_USER_SERVICE
+user-service              | SERVICE_USER_SERVICE
 userservice-instance     | SERVICE_USERSERVICE_INSTANCE
 pkg-service              | SERVICE_PKG_SERVICE
 
