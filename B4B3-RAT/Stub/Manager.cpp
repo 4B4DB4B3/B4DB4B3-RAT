@@ -124,15 +124,8 @@ std::vector<std::string> Manager::split(std::string str, char delim) {
 	std::stringstream ss(str);
 	std::string word;
 	std::vector<std::string> splittened;
-	while (std::getline(ss, word, delim))
-	{
+	while (std::getline(ss, word, delim)) {
 		splittened.push_back(word);
 	}
 	return splittened;
-}
-
-std::string Manager::ToLower(std::string str) {
-	std::string lower = "";
-	std::transform(str.begin(), str.end(), lower.begin(), ::tolower);
-	return lower;
 }

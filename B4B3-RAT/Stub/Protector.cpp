@@ -24,17 +24,15 @@ SOFTWARE.
 
 #include "Protector.h"
 #include "Manager.h"
-#include <winternl.h>
 
 void Protector::AntiProcesses() {
 	HANDLE hSnap;
 	PROCESSENTRY32 pe32;
 	pe32.dwSize = sizeof(PROCESSENTRY32);
 
-	std::vector<std::string> processes =
-	{
+	std::vector<std::string> processes = {
 		"ollydbg.exe",
-		"ProcessHacker.exe",
+		"processhacker.exe",
 		"tcpview.exe",
 		"autoruns.exe",
 		"autorunsc.exe",
@@ -44,31 +42,38 @@ void Protector::AntiProcesses() {
 		"procexp.exe",
 		"idaq.exe",
 		"idaq64.exe",
-		"ImmunityDebugger.exe",
-		"Wireshark.exe",
+		"immunitydebugger.exe",
+		"wireshark.exe",
 		"dumpcap.exe",
-		"HookExplorer.exe",
-		"ImportREC.exe",
-		"PETools.exe",
-		"LordPE.exe",
-		"SysInspector.exe",
+		"hookexplorer.exe",
+		"importrec.exe",
+		"petools.exe",
+		"lordpe.exe",
+		"sysinspector.exe",
 		"proc_analyzer.exe",
-		"sysAnalyzer.exe",
+		"sysanalyzer.exe",
 		"sniff_hit.exe",
 		"windbg.exe",
 		"joeboxcontrol.exe",
-		"joeboxserver.exe"
+		"joeboxserver.exe",
+		"windanr.exe",
+		"q.exe",
+		"dnspy.exe",
+		"idapro.exe",
+		"httpdebugger.exe"
 	};
 
+	size_t size = processes.size();
 	std::string process = "";
 	while (true) {
-		Sleep(3000);
 		hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 		if (hSnap != NULL) {
 			if (Process32First(hSnap, &pe32)) {
 				do {
-					process = Manager::ToLower(pe32.szExeFile);
-					for (size_t i = 0; i < processes.size(); i++) {
+					for (size_t i = 0; i < size; i++) {
+						process = pe32.szExeFile;
+						std::transform(process.begin(), process.end(), process.begin(),
+							[](unsigned char c) { return std::tolower(c); });
 						if (process.find(processes[i]) != std::string::npos) {
 							ExitProcess(0);
 						}
@@ -76,5 +81,6 @@ void Protector::AntiProcesses() {
 				} while (Process32Next(hSnap, &pe32));
 			}
 		}
+		Sleep(3000);
 	}
 }

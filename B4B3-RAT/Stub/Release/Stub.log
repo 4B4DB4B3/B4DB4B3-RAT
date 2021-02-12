@@ -1,9 +1,7 @@
-﻿  WinMain.cpp
-D:\VisualStudio\source\repos\B4B3-RAT\Stub\WinMain.cpp(112,71): warning C4191: приведение типов: небезопасное преобразование "void (__cdecl *)(void)" в "LPTHREAD_START_ROUTINE"
-           Вызов этой функции через результирующий указатель может вызвать сбой программы
+﻿  ProcessManager.cpp
   Создание кода
-  1 of 1896 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  0 of 1887 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    18 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
-  Stub.vcxproj -> D:\VisualStudio\source\repos\B4B3-RAT\Release\Stub.exe
+  Stub.vcxproj -> D:\VisualStudio\B4B3-RAT\Release\Stub.exe
