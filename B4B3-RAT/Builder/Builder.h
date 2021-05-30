@@ -37,15 +37,17 @@ namespace Builder {
 		char drop[128] = { 0 };
 		bool drop_run;
 
-		char scheduler_name[128] = { 0 };
+		char scheduler_name[50] = { 0 };
 		bool scheduler_state;
 
 		char autorun[128] = { 0 };
 		bool autorun_state;
 
-		char client_delay[128] = { 0 };
+		char client_delay[10] = { 0 };
 		bool auto_delete;
+
 		bool protector;
+		char protectorName[50] = { 0 };
 	};
 	#pragma pack(pop)
 

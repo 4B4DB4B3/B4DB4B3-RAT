@@ -91,7 +91,7 @@
 - [x] Add more information about PC 
 - [x] Add Service manager (for deleting, showing and adding your system drivers)
 - [x] Add Anti-analysis + Anti-debug functions
-
+- [ ] Add mutual tracking between process-spy and RAT-process
 # [CHANGELOG]
 <details>
   <summary>View changelog</summary>
@@ -111,6 +111,7 @@ Date       | Time  | Description
 08.11.2020 | 20:25 | Added file cryptor. See command list ![1](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/FileCrypt/1.png) ![2](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/FileCrypt/2.png) ![3](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/FileCrypt/3.png) ![4](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/FileCrypt/4.png)
 19.11.2020 | 20:20 | Code refactored. Fixed command "dir del_file". Added commands in File Manager: "dir read" and "dir write" to read and write files (see command list) ![dir_read](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/dir/dir_read.png) ![dir_write](https://github.com/4B4DB4B3/B4DB4B3-RAT/blob/main/Screenshots/dir/dir_write.png)
 12.02.2021 | 23:30 | Fix crash in Anti-Analysis & Anti-Debug function
+30.05.2021 | 13:21 | A process is started that makes sure that the RAT does not close
 </details>
 
 ## Service manager parse table:

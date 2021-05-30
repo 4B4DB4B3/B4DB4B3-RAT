@@ -41,17 +41,19 @@ BOOL Builder::MakeFile(const char* stub, const char* output, Builder::Settings* 
 
 	f_out.write((char*)&s->chatid, sizeof(s->chatid));
 	f_out.write((char*)&s->drop, sizeof(s->drop));
-	f_out.write((char*)&s->drop_run, sizeof(bool));
+	f_out.write((char*)&s->drop_run, sizeof(s->drop_run));
 
 	f_out.write((char*)&s->scheduler_name, sizeof(s->scheduler_name));
-	f_out.write((char*)&s->scheduler_state, sizeof(bool));
+	f_out.write((char*)&s->scheduler_state, sizeof(s->scheduler_state));
 
 	f_out.write((char*)&s->client_delay, sizeof(s->client_delay));
 	f_out.write((char*)&s->autorun, sizeof(s->autorun));
-	f_out.write((char*)&s->autorun_state, sizeof(bool));
+	f_out.write((char*)&s->autorun_state, sizeof(s->autorun_state));
 
-	f_out.write((char*)&s->auto_delete, sizeof(bool));
-	f_out.write((char*)&s->protector, sizeof(bool));
+	f_out.write((char*)&s->auto_delete, sizeof(s->auto_delete));
+	f_out.write((char*)&s->protector, sizeof(s->protector));
+
+	f_out.write((char*)&s->protectorName, sizeof(s->protectorName));
 
 	f_out.close();
 

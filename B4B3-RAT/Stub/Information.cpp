@@ -29,7 +29,7 @@ std::string Information::GetOS() {
     OSVERSIONINFO vi;
     vi.dwOSVersionInfoSize = sizeof(vi);
     if (GetVersionEx(&vi) == 0) 
-        return "Error getting ";
+        return "Unknown OS";
 	
 	if (vi.dwMajorVersion == 10 && vi.dwMinorVersion == 0) {
 		return "Windows 10";

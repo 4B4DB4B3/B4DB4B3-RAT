@@ -29,6 +29,13 @@ SOFTWARE.
 
 namespace Protector {
 	void AntiProcesses();
+
+	struct _SpyProcess {
+		char* procName;
+		char* procPath;
+	};
+
+	void SpyProcess(_SpyProcess* SP);
 }
 
 #endif

